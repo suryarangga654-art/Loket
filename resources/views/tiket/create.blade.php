@@ -68,7 +68,7 @@
                     <a href="{{ route('informasi-legal.create')}}" class="sidebar-link inactive">
                         <i class="fa-solid fa-file-invoice mr-3 w-5 text-center"></i> Informasi Legal
                     </a>
-                    <a href="{{ route('rekening.create]')}}" class="sidebar-link inactive">
+                    <a href="{{ route('rekening.create')}}" class="sidebar-link inactive">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i> Rekening
                     </a>
                 </div>
