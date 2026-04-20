@@ -1,86 +1,791 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+<div class="bg-gray-100 min-h-screen pb-20">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <nav class="bg-blue-900 text-white">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
-        <!-- Styles / Scripts -->
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @else
-            <style>
-                /*! tailwindcss v4.0.7 | MIT License | https://tailwindcss.com */@layer theme{:root,:host{--font-sans:'Instrument Sans',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-serif:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-red-50:oklch(.971 .013 17.38);--color-red-100:oklch(.936 .032 17.717);--color-red-200:oklch(.885 .062 18.334);--color-red-300:oklch(.808 .114 19.571);--color-red-400:oklch(.704 .191 22.216);--color-red-500:oklch(.637 .237 25.331);--color-red-600:oklch(.577 .245 27.325);--color-red-700:oklch(.505 .213 27.518);--color-red-800:oklch(.444 .177 26.899);--color-red-900:oklch(.396 .141 25.723);--color-red-950:oklch(.258 .092 26.042);--color-orange-50:oklch(.98 .016 73.684);--color-orange-100:oklch(.954 .038 75.164);--color-orange-200:oklch(.901 .076 70.697);--color-orange-300:oklch(.837 .128 66.29);--color-orange-400:oklch(.75 .183 55.934);--color-orange-500:oklch(.705 .213 47.604);--color-orange-600:oklch(.646 .222 41.116);--color-orange-700:oklch(.553 .195 38.402);--color-orange-800:oklch(.47 .157 37.304);--color-orange-900:oklch(.408 .123 38.172);--color-orange-950:oklch(.266 .079 36.259);--color-amber-50:oklch(.987 .022 95.277);--color-amber-100:oklch(.962 .059 95.617);--color-amber-200:oklch(.924 .12 95.746);--color-amber-300:oklch(.879 .169 91.605);--color-amber-400:oklch(.828 .189 84.429);--color-amber-500:oklch(.769 .188 70.08);--color-amber-600:oklch(.666 .179 58.318);--color-amber-700:oklch(.555 .163 48.998);--color-amber-800:oklch(.473 .137 46.201);--color-amber-900:oklch(.414 .112 45.904);--color-amber-950:oklch(.279 .077 45.635);--color-yellow-50:oklch(.987 .026 102.212);--color-yellow-100:oklch(.973 .071 103.193);--color-yellow-200:oklch(.945 .129 101.54);--color-yellow-300:oklch(.905 .182 98.111);--color-yellow-400:oklch(.852 .199 91.936);--color-yellow-500:oklch(.795 .184 86.047);--color-yellow-600:oklch(.681 .162 75.834);--color-yellow-700:oklch(.554 .135 66.442);--color-yellow-800:oklch(.476 .114 61.907);--color-yellow-900:oklch(.421 .095 57.708);--color-yellow-950:oklch(.286 .066 53.813);--color-lime-50:oklch(.986 .031 120.757);--color-lime-100:oklch(.967 .067 122.328);--color-lime-200:oklch(.938 .127 124.321);--color-lime-300:oklch(.897 .196 126.665);--color-lime-400:oklch(.841 .238 128.85);--color-lime-500:oklch(.768 .233 130.85);--color-lime-600:oklch(.648 .2 131.684);--color-lime-700:oklch(.532 .157 131.589);--color-lime-800:oklch(.453 .124 130.933);--color-lime-900:oklch(.405 .101 131.063);--color-lime-950:oklch(.274 .072 132.109);--color-green-50:oklch(.982 .018 155.826);--color-green-100:oklch(.962 .044 156.743);--color-green-200:oklch(.925 .084 155.995);--color-green-300:oklch(.871 .15 154.449);--color-green-400:oklch(.792 .209 151.711);--color-green-500:oklch(.723 .219 149.579);--color-green-600:oklch(.627 .194 149.214);--color-green-700:oklch(.527 .154 150.069);--color-green-800:oklch(.448 .119 151.328);--color-green-900:oklch(.393 .095 152.535);--color-green-950:oklch(.266 .065 152.934);--color-emerald-50:oklch(.979 .021 166.113);--color-emerald-100:oklch(.95 .052 163.051);--color-emerald-200:oklch(.905 .093 164.15);--color-emerald-300:oklch(.845 .143 164.978);--color-emerald-400:oklch(.765 .177 163.223);--color-emerald-500:oklch(.696 .17 162.48);--color-emerald-600:oklch(.596 .145 163.225);--color-emerald-700:oklch(.508 .118 165.612);--color-emerald-800:oklch(.432 .095 166.913);--color-emerald-900:oklch(.378 .077 168.94);--color-emerald-950:oklch(.262 .051 172.552);--color-teal-50:oklch(.984 .014 180.72);--color-teal-100:oklch(.953 .051 180.801);--color-teal-200:oklch(.91 .096 180.426);--color-teal-300:oklch(.855 .138 181.071);--color-teal-400:oklch(.777 .152 181.912);--color-teal-500:oklch(.704 .14 182.503);--color-teal-600:oklch(.6 .118 184.704);--color-teal-700:oklch(.511 .096 186.391);--color-teal-800:oklch(.437 .078 188.216);--color-teal-900:oklch(.386 .063 188.416);--color-teal-950:oklch(.277 .046 192.524);--color-cyan-50:oklch(.984 .019 200.873);--color-cyan-100:oklch(.956 .045 203.388);--color-cyan-200:oklch(.917 .08 205.041);--color-cyan-300:oklch(.865 .127 207.078);--color-cyan-400:oklch(.789 .154 211.53);--color-cyan-500:oklch(.715 .143 215.221);--color-cyan-600:oklch(.609 .126 221.723);--color-cyan-700:oklch(.52 .105 223.128);--color-cyan-800:oklch(.45 .085 224.283);--color-cyan-900:oklch(.398 .07 227.392);--color-cyan-950:oklch(.302 .056 229.695);--color-sky-50:oklch(.977 .013 236.62);--color-sky-100:oklch(.951 .026 236.824);--color-sky-200:oklch(.901 .058 230.902);--color-sky-300:oklch(.828 .111 230.318);--color-sky-400:oklch(.746 .16 232.661);--color-sky-500:oklch(.685 .169 237.323);--color-sky-600:oklch(.588 .158 241.966);--color-sky-700:oklch(.5 .134 242.749);--color-sky-800:oklch(.443 .11 240.79);--color-sky-900:oklch(.391 .09 240.876);--color-sky-950:oklch(.293 .066 243.157);--color-blue-50:oklch(.97 .014 254.604);--color-blue-100:oklch(.932 .032 255.585);--color-blue-200:oklch(.882 .059 254.128);--color-blue-300:oklch(.809 .105 251.813);--color-blue-400:oklch(.707 .165 254.624);--color-blue-500:oklch(.623 .214 259.815);--color-blue-600:oklch(.546 .245 262.881);--color-blue-700:oklch(.488 .243 264.376);--color-blue-800:oklch(.424 .199 265.638);--color-blue-900:oklch(.379 .146 265.522);--color-blue-950:oklch(.282 .091 267.935);--color-indigo-50:oklch(.962 .018 272.314);--color-indigo-100:oklch(.93 .034 272.788);--color-indigo-200:oklch(.87 .065 274.039);--color-indigo-300:oklch(.785 .115 274.713);--color-indigo-400:oklch(.673 .182 276.935);--color-indigo-500:oklch(.585 .233 277.117);--color-indigo-600:oklch(.511 .262 276.966);--color-indigo-700:oklch(.457 .24 277.023);--color-indigo-800:oklch(.398 .195 277.366);--color-indigo-900:oklch(.359 .144 278.697);--color-indigo-950:oklch(.257 .09 281.288);--color-violet-50:oklch(.969 .016 293.756);--color-violet-100:oklch(.943 .029 294.588);--color-violet-200:oklch(.894 .057 293.283);--color-violet-300:oklch(.811 .111 293.571);--color-violet-400:oklch(.702 .183 293.541);--color-violet-500:oklch(.606 .25 292.717);--color-violet-600:oklch(.541 .281 293.009);--color-violet-700:oklch(.491 .27 292.581);--color-violet-800:oklch(.432 .232 292.759);--color-violet-900:oklch(.38 .189 293.745);--color-violet-950:oklch(.283 .141 291.089);--color-purple-50:oklch(.977 .014 308.299);--color-purple-100:oklch(.946 .033 307.174);--color-purple-200:oklch(.902 .063 306.703);--color-purple-300:oklch(.827 .119 306.383);--color-purple-400:oklch(.714 .203 305.504);--color-purple-500:oklch(.627 .265 303.9);--color-purple-600:oklch(.558 .288 302.321);--color-purple-700:oklch(.496 .265 301.924);--color-purple-800:oklch(.438 .218 303.724);--color-purple-900:oklch(.381 .176 304.987);--color-purple-950:oklch(.291 .149 302.717);--color-fuchsia-50:oklch(.977 .017 320.058);--color-fuchsia-100:oklch(.952 .037 318.852);--color-fuchsia-200:oklch(.903 .076 319.62);--color-fuchsia-300:oklch(.833 .145 321.434);--color-fuchsia-400:oklch(.74 .238 322.16);--color-fuchsia-500:oklch(.667 .295 322.15);--color-fuchsia-600:oklch(.591 .293 322.896);--color-fuchsia-700:oklch(.518 .253 323.949);--color-fuchsia-800:oklch(.452 .211 324.591);--color-fuchsia-900:oklch(.401 .17 325.612);--color-fuchsia-950:oklch(.293 .136 325.661);--color-pink-50:oklch(.971 .014 343.198);--color-pink-100:oklch(.948 .028 342.258);--color-pink-200:oklch(.899 .061 343.231);--color-pink-300:oklch(.823 .12 346.018);--color-pink-400:oklch(.718 .202 349.761);--color-pink-500:oklch(.656 .241 354.308);--color-pink-600:oklch(.592 .249 .584);--color-pink-700:oklch(.525 .223 3.958);--color-pink-800:oklch(.459 .187 3.815);--color-pink-900:oklch(.408 .153 2.432);--color-pink-950:oklch(.284 .109 3.907);--color-rose-50:oklch(.969 .015 12.422);--color-rose-100:oklch(.941 .03 12.58);--color-rose-200:oklch(.892 .058 10.001);--color-rose-300:oklch(.81 .117 11.638);--color-rose-400:oklch(.712 .194 13.428);--color-rose-500:oklch(.645 .246 16.439);--color-rose-600:oklch(.586 .253 17.585);--color-rose-700:oklch(.514 .222 16.935);--color-rose-800:oklch(.455 .188 13.697);--color-rose-900:oklch(.41 .159 10.272);--color-rose-950:oklch(.271 .105 12.094);--color-slate-50:oklch(.984 .003 247.858);--color-slate-100:oklch(.968 .007 247.896);--color-slate-200:oklch(.929 .013 255.508);--color-slate-300:oklch(.869 .022 252.894);--color-slate-400:oklch(.704 .04 256.788);--color-slate-500:oklch(.554 .046 257.417);--color-slate-600:oklch(.446 .043 257.281);--color-slate-700:oklch(.372 .044 257.287);--color-slate-800:oklch(.279 .041 260.031);--color-slate-900:oklch(.208 .042 265.755);--color-slate-950:oklch(.129 .042 264.695);--color-gray-50:oklch(.985 .002 247.839);--color-gray-100:oklch(.967 .003 264.542);--color-gray-200:oklch(.928 .006 264.531);--color-gray-300:oklch(.872 .01 258.338);--color-gray-400:oklch(.707 .022 261.325);--color-gray-500:oklch(.551 .027 264.364);--color-gray-600:oklch(.446 .03 256.802);--color-gray-700:oklch(.373 .034 259.733);--color-gray-800:oklch(.278 .033 256.848);--color-gray-900:oklch(.21 .034 264.665);--color-gray-950:oklch(.13 .028 261.692);--color-zinc-50:oklch(.985 0 0);--color-zinc-100:oklch(.967 .001 286.375);--color-zinc-200:oklch(.92 .004 286.32);--color-zinc-300:oklch(.871 .006 286.286);--color-zinc-400:oklch(.705 .015 286.067);--color-zinc-500:oklch(.552 .016 285.938);--color-zinc-600:oklch(.442 .017 285.786);--color-zinc-700:oklch(.37 .013 285.805);--color-zinc-800:oklch(.274 .006 286.033);--color-zinc-900:oklch(.21 .006 285.885);--color-zinc-950:oklch(.141 .005 285.823);--color-neutral-50:oklch(.985 0 0);--color-neutral-100:oklch(.97 0 0);--color-neutral-200:oklch(.922 0 0);--color-neutral-300:oklch(.87 0 0);--color-neutral-400:oklch(.708 0 0);--color-neutral-500:oklch(.556 0 0);--color-neutral-600:oklch(.439 0 0);--color-neutral-700:oklch(.371 0 0);--color-neutral-800:oklch(.269 0 0);--color-neutral-900:oklch(.205 0 0);--color-neutral-950:oklch(.145 0 0);--color-stone-50:oklch(.985 .001 106.423);--color-stone-100:oklch(.97 .001 106.424);--color-stone-200:oklch(.923 .003 48.717);--color-stone-300:oklch(.869 .005 56.366);--color-stone-400:oklch(.709 .01 56.259);--color-stone-500:oklch(.553 .013 58.071);--color-stone-600:oklch(.444 .011 73.639);--color-stone-700:oklch(.374 .01 67.558);--color-stone-800:oklch(.268 .007 34.298);--color-stone-900:oklch(.216 .006 56.043);--color-stone-950:oklch(.147 .004 49.25);--color-black:#000;--color-white:#fff;--spacing:.25rem;--breakpoint-sm:40rem;--breakpoint-md:48rem;--breakpoint-lg:64rem;--breakpoint-xl:80rem;--breakpoint-2xl:96rem;--container-3xs:16rem;--container-2xs:18rem;--container-xs:20rem;--container-sm:24rem;--container-md:28rem;--container-lg:32rem;--container-xl:36rem;--container-2xl:42rem;--container-3xl:48rem;--container-4xl:56rem;--container-5xl:64rem;--container-6xl:72rem;--container-7xl:80rem;--text-xs:.75rem;--text-xs--line-height:calc(1/.75);--text-sm:.875rem;--text-sm--line-height:calc(1.25/.875);--text-base:1rem;--text-base--line-height: 1.5 ;--text-lg:1.125rem;--text-lg--line-height:calc(1.75/1.125);--text-xl:1.25rem;--text-xl--line-height:calc(1.75/1.25);--text-2xl:1.5rem;--text-2xl--line-height:calc(2/1.5);--text-3xl:1.875rem;--text-3xl--line-height: 1.2 ;--text-4xl:2.25rem;--text-4xl--line-height:calc(2.5/2.25);--text-5xl:3rem;--text-5xl--line-height:1;--text-6xl:3.75rem;--text-6xl--line-height:1;--text-7xl:4.5rem;--text-7xl--line-height:1;--text-8xl:6rem;--text-8xl--line-height:1;--text-9xl:8rem;--text-9xl--line-height:1;--font-weight-thin:100;--font-weight-extralight:200;--font-weight-light:300;--font-weight-normal:400;--font-weight-medium:500;--font-weight-semibold:600;--font-weight-bold:700;--font-weight-extrabold:800;--font-weight-black:900;--tracking-tighter:-.05em;--tracking-tight:-.025em;--tracking-normal:0em;--tracking-wide:.025em;--tracking-wider:.05em;--tracking-widest:.1em;--leading-tight:1.25;--leading-snug:1.375;--leading-normal:1.5;--leading-relaxed:1.625;--leading-loose:2;--radius-xs:.125rem;--radius-sm:.25rem;--radius-md:.375rem;--radius-lg:.5rem;--radius-xl:.75rem;--radius-2xl:1rem;--radius-3xl:1.5rem;--radius-4xl:2rem;--shadow-2xs:0 1px #0000000d;--shadow-xs:0 1px 2px 0 #0000000d;--shadow-sm:0 1px 3px 0 #0000001a,0 1px 2px -1px #0000001a;--shadow-md:0 4px 6px -1px #0000001a,0 2px 4px -2px #0000001a;--shadow-lg:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a;--shadow-xl:0 20px 25px -5px #0000001a,0 8px 10px -6px #0000001a;--shadow-2xl:0 25px 50px -12px #00000040;--inset-shadow-2xs:inset 0 1px #0000000d;--inset-shadow-xs:inset 0 1px 1px #0000000d;--inset-shadow-sm:inset 0 2px 4px #0000000d;--drop-shadow-xs:0 1px 1px #0000000d;--drop-shadow-sm:0 1px 2px #00000026;--drop-shadow-md:0 3px 3px #0000001f;--drop-shadow-lg:0 4px 4px #00000026;--drop-shadow-xl:0 9px 7px #0000001a;--drop-shadow-2xl:0 25px 25px #00000026;--ease-in:cubic-bezier(.4,0,1,1);--ease-out:cubic-bezier(0,0,.2,1);--ease-in-out:cubic-bezier(.4,0,.2,1);--animate-spin:spin 1s linear infinite;--animate-ping:ping 1s cubic-bezier(0,0,.2,1)infinite;--animate-pulse:pulse 2s cubic-bezier(.4,0,.6,1)infinite;--animate-bounce:bounce 1s infinite;--blur-xs:4px;--blur-sm:8px;--blur-md:12px;--blur-lg:16px;--blur-xl:24px;--blur-2xl:40px;--blur-3xl:64px;--perspective-dramatic:100px;--perspective-near:300px;--perspective-normal:500px;--perspective-midrange:800px;--perspective-distant:1200px;--aspect-video:16/9;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-font-feature-settings:var(--font-sans--font-feature-settings);--default-font-variation-settings:var(--font-sans--font-variation-settings);--default-mono-font-family:var(--font-mono);--default-mono-font-feature-settings:var(--font-mono--font-feature-settings);--default-mono-font-variation-settings:var(--font-mono--font-variation-settings)}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}body{line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1;color:color-mix(in oklab,currentColor 50%,transparent)}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){-webkit-appearance:button;-moz-appearance:button;appearance:button}::file-selector-button{-webkit-appearance:button;-moz-appearance:button;appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.absolute{position:absolute}.relative{position:relative}.static{position:static}.inset-0{inset:calc(var(--spacing)*0)}.-mt-\[4\.9rem\]{margin-top:-4.9rem}.-mb-px{margin-bottom:-1px}.mb-1{margin-bottom:calc(var(--spacing)*1)}.mb-2{margin-bottom:calc(var(--spacing)*2)}.mb-4{margin-bottom:calc(var(--spacing)*4)}.mb-6{margin-bottom:calc(var(--spacing)*6)}.-ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.table{display:table}.aspect-\[335\/376\]{aspect-ratio:335/376}.h-1{height:calc(var(--spacing)*1)}.h-1\.5{height:calc(var(--spacing)*1.5)}.h-2{height:calc(var(--spacing)*2)}.h-2\.5{height:calc(var(--spacing)*2.5)}.h-3{height:calc(var(--spacing)*3)}.h-3\.5{height:calc(var(--spacing)*3.5)}.h-14{height:calc(var(--spacing)*14)}.h-14\.5{height:calc(var(--spacing)*14.5)}.min-h-screen{min-height:100vh}.w-1{width:calc(var(--spacing)*1)}.w-1\.5{width:calc(var(--spacing)*1.5)}.w-2{width:calc(var(--spacing)*2)}.w-2\.5{width:calc(var(--spacing)*2.5)}.w-3{width:calc(var(--spacing)*3)}.w-3\.5{width:calc(var(--spacing)*3.5)}.w-\[448px\]{width:448px}.w-full{width:100%}.max-w-\[335px\]{max-width:335px}.max-w-none{max-width:none}.flex-1{flex:1}.shrink-0{flex-shrink:0}.translate-y-0{--tw-translate-y:calc(var(--spacing)*0);translate:var(--tw-translate-x)var(--tw-translate-y)}.transform{transform:var(--tw-rotate-x)var(--tw-rotate-y)var(--tw-rotate-z)var(--tw-skew-x)var(--tw-skew-y)}.flex-col{flex-direction:column}.flex-col-reverse{flex-direction:column-reverse}.items-center{align-items:center}.justify-center{justify-content:center}.justify-end{justify-content:flex-end}.gap-3{gap:calc(var(--spacing)*3)}.gap-4{gap:calc(var(--spacing)*4)}:where(.space-x-1>:not(:last-child)){--tw-space-x-reverse:0;margin-inline-start:calc(calc(var(--spacing)*1)*var(--tw-space-x-reverse));margin-inline-end:calc(calc(var(--spacing)*1)*calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:3.40282e38px}.rounded-sm{border-radius:var(--radius-sm)}.rounded-t-lg{border-top-left-radius:var(--radius-lg);border-top-right-radius:var(--radius-lg)}.rounded-br-lg{border-bottom-right-radius:var(--radius-lg)}.rounded-bl-lg{border-bottom-left-radius:var(--radius-lg)}.border{border-style:var(--tw-border-style);border-width:1px}.border-\[\#19140035\]{border-color:#19140035}.border-\[\#e3e3e0\]{border-color:#e3e3e0}.border-black{border-color:var(--color-black)}.border-transparent{border-color:#0000}.bg-\[\#1b1b18\]{background-color:#1b1b18}.bg-\[\#FDFDFC\]{background-color:#fdfdfc}.bg-\[\#dbdbd7\]{background-color:#dbdbd7}.bg-\[\#fff2f2\]{background-color:#fff2f2}.bg-white{background-color:var(--color-white)}.p-6{padding:calc(var(--spacing)*6)}.px-5{padding-inline:calc(var(--spacing)*5)}.py-1{padding-block:calc(var(--spacing)*1)}.py-1\.5{padding-block:calc(var(--spacing)*1.5)}.py-2{padding-block:calc(var(--spacing)*2)}.pb-12{padding-bottom:calc(var(--spacing)*12)}.text-sm{font-size:var(--text-sm);line-height:var(--tw-leading,var(--text-sm--line-height))}.text-\[13px\]{font-size:13px}.leading-\[20px\]{--tw-leading:20px;line-height:20px}.leading-normal{--tw-leading:var(--leading-normal);line-height:var(--leading-normal)}.font-medium{--tw-font-weight:var(--font-weight-medium);font-weight:var(--font-weight-medium)}.text-\[\#1b1b18\]{color:#1b1b18}.text-\[\#706f6c\]{color:#706f6c}.text-\[\#F53003\],.text-\[\#f53003\]{color:#f53003}.text-white{color:var(--color-white)}.underline{text-decoration-line:underline}.underline-offset-4{text-underline-offset:4px}.opacity-100{opacity:1}.shadow-\[0px_0px_1px_0px_rgba\(0\,0\,0\,0\.03\)\,0px_1px_2px_0px_rgba\(0\,0\,0\,0\.06\)\]{--tw-shadow:0px 0px 1px 0px var(--tw-shadow-color,#00000008),0px 1px 2px 0px var(--tw-shadow-color,#0000000f);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[inset_0px_0px_0px_1px_rgba\(26\,26\,0\,0\.16\)\]{--tw-shadow:inset 0px 0px 0px 1px var(--tw-shadow-color,#1a1a0029);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.\!filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)!important}.filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.transition-all{transition-property:all;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-opacity{transition-property:opacity;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.delay-300{transition-delay:.3s}.duration-750{--tw-duration:.75s;transition-duration:.75s}.not-has-\[nav\]\:hidden:not(:has(:is(nav))){display:none}.before\:absolute:before{content:var(--tw-content);position:absolute}.before\:top-0:before{content:var(--tw-content);top:calc(var(--spacing)*0)}.before\:top-1\/2:before{content:var(--tw-content);top:50%}.before\:bottom-0:before{content:var(--tw-content);bottom:calc(var(--spacing)*0)}.before\:bottom-1\/2:before{content:var(--tw-content);bottom:50%}.before\:left-\[0\.4rem\]:before{content:var(--tw-content);left:.4rem}.before\:border-l:before{content:var(--tw-content);border-left-style:var(--tw-border-style);border-left-width:1px}.before\:border-\[\#e3e3e0\]:before{content:var(--tw-content);border-color:#e3e3e0}@media (hover:hover){.hover\:border-\[\#1915014a\]:hover{border-color:#1915014a}.hover\:border-\[\#19140035\]:hover{border-color:#19140035}.hover\:border-black:hover{border-color:var(--color-black)}.hover\:bg-black:hover{background-color:var(--color-black)}}@media (width>=64rem){.lg\:-mt-\[6\.6rem\]{margin-top:-6.6rem}.lg\:mb-0{margin-bottom:calc(var(--spacing)*0)}.lg\:mb-6{margin-bottom:calc(var(--spacing)*6)}.lg\:-ml-px{margin-left:-1px}.lg\:ml-0{margin-left:calc(var(--spacing)*0)}.lg\:block{display:block}.lg\:aspect-auto{aspect-ratio:auto}.lg\:w-\[438px\]{width:438px}.lg\:max-w-4xl{max-width:var(--container-4xl)}.lg\:grow{flex-grow:1}.lg\:flex-row{flex-direction:row}.lg\:justify-center{justify-content:center}.lg\:rounded-t-none{border-top-left-radius:0;border-top-right-radius:0}.lg\:rounded-tl-lg{border-top-left-radius:var(--radius-lg)}.lg\:rounded-r-lg{border-top-right-radius:var(--radius-lg);border-bottom-right-radius:var(--radius-lg)}.lg\:rounded-br-none{border-bottom-right-radius:0}.lg\:p-8{padding:calc(var(--spacing)*8)}.lg\:p-20{padding:calc(var(--spacing)*20)}}@media (prefers-color-scheme:dark){.dark\:block{display:block}.dark\:hidden{display:none}.dark\:border-\[\#3E3E3A\]{border-color:#3e3e3a}.dark\:border-\[\#eeeeec\]{border-color:#eeeeec}.dark\:bg-\[\#0a0a0a\]{background-color:#0a0a0a}.dark\:bg-\[\#1D0002\]{background-color:#1d0002}.dark\:bg-\[\#3E3E3A\]{background-color:#3e3e3a}.dark\:bg-\[\#161615\]{background-color:#161615}.dark\:bg-\[\#eeeeec\]{background-color:#eeeeec}.dark\:text-\[\#1C1C1A\]{color:#1c1c1a}.dark\:text-\[\#A1A09A\]{color:#a1a09a}.dark\:text-\[\#EDEDEC\]{color:#ededec}.dark\:text-\[\#F61500\]{color:#f61500}.dark\:text-\[\#FF4433\]{color:#f43}.dark\:shadow-\[inset_0px_0px_0px_1px_\#fffaed2d\]{--tw-shadow:inset 0px 0px 0px 1px var(--tw-shadow-color,#fffaed2d);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.dark\:before\:border-\[\#3E3E3A\]:before{content:var(--tw-content);border-color:#3e3e3a}@media (hover:hover){.dark\:hover\:border-\[\#3E3E3A\]:hover{border-color:#3e3e3a}.dark\:hover\:border-\[\#62605b\]:hover{border-color:#62605b}.dark\:hover\:border-white:hover{border-color:var(--color-white)}.dark\:hover\:bg-white:hover{background-color:var(--color-white)}}}@starting-style{.starting\:translate-y-4{--tw-translate-y:calc(var(--spacing)*4);translate:var(--tw-translate-x)var(--tw-translate-y)}}@starting-style{.starting\:translate-y-6{--tw-translate-y:calc(var(--spacing)*6);translate:var(--tw-translate-x)var(--tw-translate-y)}}@starting-style{.starting\:opacity-0{opacity:0}}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes ping{75%,to{opacity:0;transform:scale(2)}}@keyframes pulse{50%{opacity:.5}}@keyframes bounce{0%,to{animation-timing-function:cubic-bezier(.8,0,1,1);transform:translateY(-25%)}50%{animation-timing-function:cubic-bezier(0,0,.2,1);transform:none}}@property --tw-translate-x{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-y{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-z{syntax:"*";inherits:false;initial-value:0}@property --tw-rotate-x{syntax:"*";inherits:false;initial-value:rotateX(0)}@property --tw-rotate-y{syntax:"*";inherits:false;initial-value:rotateY(0)}@property --tw-rotate-z{syntax:"*";inherits:false;initial-value:rotateZ(0)}@property --tw-skew-x{syntax:"*";inherits:false;initial-value:skewX(0)}@property --tw-skew-y{syntax:"*";inherits:false;initial-value:skewY(0)}@property --tw-space-x-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-leading{syntax:"*";inherits:false}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-duration{syntax:"*";inherits:false}@property --tw-content{syntax:"*";inherits:false;initial-value:""}
-            </style>
-        @endif
-    </head>
-        <header class="w-full font-sans">
-    <div class="bg-[#004997] text-white py-2 px-10">
-        <div class="max-w-[1400px] mx-auto flex justify-end items-center gap-5 text-[12px]">
-            <a href="#" class="hover:underline">Mulai Jadi Event Creator</a>
-            <a href="#" class="hover:underline">Biaya</a>
-            <a href="#" class="hover:underline">Blog</a>
-            <a href="#" class="text-blue-300 font-bold hover:underline">LOKET X</a>
-            <a href="#" class="hover:underline">LOKET Screen</a>
-            <a href="#" class="hover:underline">LOKET Plus</a>
-            <a href="#" class="text-yellow-400 hover:underline">Pusat Bantuan</a>
-            <div class="flex items-center gap-1 cursor-pointer">
-                <img src="https://flagcdn.com/w20/id.png" alt="ID" class="w-4 h-3">
-                <span class="font-bold">ID</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    {{-- Top Bar --}}
+    <div class="border-b border-blue-800">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-end gap-6 py-1.5 text-xs">
+            <a href="{{ route('creator.create')}}" class="hover:text-blue-300 transition">Mulai Jadi Event Creator</a>
+            <a href="{{ route('biaya.create')}}" class="hover:text-blue-300 transition">Biaya</a>
+            <a href="{{ route('blog.create')}}" class="hover:text-blue-300 transition">Blog</a>
+            <a href="{{ route('loketx.create')}}" class="hover:text-blue-300 transition">LOKET X</a>
+            <a href="{{ route('loketscreen.create')}}" class="hover:text-blue-300 transition">LOKET Screen</a>
+            <a href="#" class="hover:text-blue-300 transition">LOKET Plus</a>
+            <a href="{{ route('pusat.create')}}" class="hover:text-blue-300 transition">Pusat Bantuan</a>
+            <div class="flex items-center gap-1 cursor-pointer hover:text-blue-300 transition">
+                <span>🇮🇩</span>
+                <span>ID</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
             </div>
         </div>
     </div>
 
-    <div class="bg-[#00254d] px-10 py-5">
-        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+    {{-- Main Navbar --}}
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-6">
+
+        {{-- Logo --}}
+        <a href="/" class="flex items-center gap-1 shrink-0">
+            <span class="text-2xl font-black italic tracking-tight">LOKET</span>
+            <div class="flex flex-col leading-none ml-1">
+                <span class="text-orange-400 font-black text-2xl leading-none">12</span>
+                <span class="text-[10px] font-semibold text-blue-200 leading-none">Tahun</span>
+            </div>
+        </a>
+
+        {{-- Search --}}
+        <div class="flex-1 relative">
+            <input type="text"
+                placeholder="Cari event seru di sini"
+                class="w-full px-4 py-2.5 pr-14 rounded-lg text-black text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 border-0">
+            <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 hover:bg-blue-500 rounded-r-lg transition flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </button>
+        </div>
+
+        {{-- Right Buttons --}}
+        <div class="flex items-center gap-3 shrink-0">
+            <a href="{{ route('events.create') }}" class="flex items-center gap-2 text-sm font-semibold hover:text-blue-300 transition whitespace-nowrap">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Buat Event
+            </a>
+
+             <a href="{{ route ('jelajah.create')}}" class="flex items-center gap-2 text-sm font-bold hover:text-blue-300 transition whitespace-nowrap">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                        Jelajah Event
+                    </a>
+            {{-- Profile Dropdown --}}
+            @if (Route::has('login'))
+                @auth
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.outside="open = false"
+                            class="w-9 h-9 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center shadow transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-50 origin-top-right">
+
+                            <div class="px-4 py-3 border-b border-gray-100">
+                                <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name }}</p>
+                                <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
+                            </div>
+
+                           <a href="{{ route('jelajah.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Jelajah Event
+                            </a>
+
+                            <a href="{{ route('tiket.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Tiket Saya
+                            </a>
+                            <hr>
+                            <a href="{{ route('informasi.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Informasi Dasar
+                            </a>
+                            <a href="{{ route('pengaturan.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                 Pengaturan                            
+                                </a>
+
+                            <div class="border-t border-gray-100 my-1"></div>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/>
+                                    </svg>
+                                    Keluar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold transition">Login</a>
+                    <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold transition">Register</a>
+                @endauth
+            @endif
+        </div>
+    </div>
+
+    {{-- Hashtag Bar --}}
+    <div class="max-w-7xl mx-auto px-4 pb-2.5 flex items-center gap-4 text-xs text-blue-300">
+        <a href="{{ route('promo.create')}}" class="hover:text-white transition">#Promo_Indodana</a>
+        <a href="{{ route('loketplus.create')}}" class="hover:text-white transition">#LOKETPLus</a>
+        <a href="#" class="hover:text-white transition">#LOKETScreen</a>
+        <a href="#" class="hover:text-white transition">#LOKET_Promo</a>
+        <a href="#" class="hover:text-white transition">#LoketAttraction</a>
+    </div>
+
+</nav>
+    <div class="max-w-7xl mx-auto mt-6 px-4 relative">
+        <button onclick="prevSlide()" 
+            class="absolute left-6 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white px-3 py-2 rounded-full">
+            ❮
+        </button>
+
+        <div class="overflow-hidden rounded-2xl shadow-lg">
+            <div id="slides" class="flex transition-transform duration-500">
+                {{-- Ganti bagian slider item yang pertama (Retrospektif) menjadi seperti ini --}}
+<div class="min-w-full relative group cursor-pointer">
+    <a href="{{ route('eventsshow.create', ['slug' => 'afgan-retrospektif-2026']) }}" class="block">
+        <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200"
+             class="w-full h-80 object-cover">
+        <div class="absolute inset-0 bg-black/40 flex items-center px-10 text-white transition-opacity group-hover:bg-black/50">
+            <div>
+                <p class="text-sm tracking-widest uppercase">AFGAN</p>
+                <h1 class="text-4xl font-black">Retrospektif</h1>
+                <p class="text-xl">The Concert</p>
+                {{-- Tambahan button indikator --}}
+                <div class="mt-4 inline-block bg-blue-600 px-6 py-2 rounded-lg font-bold text-sm">Beli Tiket</div>
+            </div>
+        </div>
+    </a>
+</div>
+                <div class="min-w-full">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200"
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="min-w-full">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200"
+                         class="w-full h-80 object-cover">
+                </div>
+            </div>
+        </div>
+
+        <button onclick="nextSlide()" 
+            class="absolute right-6 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white px-3 py-2 rounded-full">
+            ❯
+        </button>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-10 px-4">
+    <h2 class="text-2xl font-black italic uppercase tracking-tighter text-gray-800 mb-6">Featured Events</h2>
+
+    <div class="relative group">
+        <button onclick="prevEvent()" 
+            class="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl text-blue-900 w-10 h-10 rounded-full flex items-center justify-center border border-gray-100 hover:bg-gray-100 transition">
+            ❮
+        </button>
+
+        <div class="overflow-hidden px-1">
+            <div id="eventSlides" class="flex gap-6 transition-transform duration-500 ease-in-out">
+                @php
+                $images = [
+                    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=400",
+                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=400",
+                    "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=400",
+                    "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=400",
+                    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=400",
+                    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=400"
+                ];
+                @endphp
+
+                @foreach(range(0,5) as $i)
+                {{-- BUNGKUS DENGAN TAG <a> UNTUK PINDAH HALAMAN --}}
+                <a href="{{ route('eventsshow.create', ['slug' => 'event-keren-'.($i+1)]) }}" 
+                   class="min-w-[280px] flex-shrink-0 bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
+                    
+                    <div class="relative overflow-hidden">
+                        <img src="{{ $images[$i] }}" 
+                             onerror="this.src='https://placehold.co/400x250?text=Event+{{ $i+1 }}'"
+                             class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-blue-600 uppercase shadow-sm">
+                            Music
+                        </div>
+                    </div>
+
+                    <div class="p-4">
+                        <h3 class="font-black text-gray-800 uppercase italic tracking-tight group-hover:text-blue-600 transition">Event Keren {{ $i+1 }}</h3>
+                        <p class="text-gray-400 text-xs mt-1 flex items-center gap-1 font-bold uppercase italic">
+                            📅 25 Apr 2026
+                        </p>
+                        <p class="font-black mt-3 text-blue-900 text-lg italic tracking-tighter">Rp1.500.000</p>
+                        <hr class="my-3 border-gray-50">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-[10px]">🏢</div>
+                            <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Organizer XYZ</div>
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+
+        <button onclick="nextEvent()" 
+            class="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl text-blue-900 w-10 h-10 rounded-full flex items-center justify-center border border-gray-100 hover:bg-gray-100 transition">
+            ❯
+        </button>
+    </div>
+</div>
+
+<script>
+    let currentPos = 0;
+    const slider = document.getElementById('eventSlides');
+    const cardWidth = 304; // Lebar card (280px) + Gap (24px)
+
+    function nextEvent() {
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        if (currentPos < maxScroll) {
+            currentPos += cardWidth;
+            if (currentPos > maxScroll) currentPos = maxScroll;
+            slider.style.transform = `translateX(-${currentPos}px)`;
+        } else {
+            // Balik ke awal jika sudah di ujung
+            currentPos = 0;
+            slider.style.transform = `translateX(0px)`;
+        }
+    }
+
+    function prevEvent() {
+        if (currentPos > 0) {
+            currentPos -= cardWidth;
+            if (currentPos < 0) currentPos = 0;
+            slider.style.transform = `translateX(-${currentPos}px)`;
+        }
+    }
+</script>
+   <div class="max-w-7xl mx-auto mt-16 px-4">
+    {{-- Bungkus dengan tag <a> dan beri efek hover --}}
+    <a href="{{ route('promo.create')}}" target="_blank" 
+       class="block relative overflow-hidden rounded-2xl bg-gradient-to-r from-gray-100 to-gray-200 h-32 flex items-center shadow-inner border border-gray-300 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 group">
+        
+        <div class="flex items-center justify-between w-full px-6 md:px-12">
+            {{-- Sisi Kiri: Logo & Badge --}}
+            <div class="flex items-center gap-4">
+                <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100 group-hover:border-orange-200 transition">
+                    <span class="text-orange-600 font-black italic text-xl">LOKET</span>
+                    <span class="text-orange-400 text-xs block -mt-1 font-bold">Creator</span>
+                </div>
+                <span class="hidden md:block bg-orange-600 text-white px-4 py-1.5 rounded-full font-bold text-lg shadow-md group-hover:bg-orange-700 transition">
+                    Biaya Komisi
+                </span>
+            </div>
+
+            {{-- Sisi Tengah: Promo 1,2% --}}
+            <div class="bg-blue-900 text-white px-6 py-2 rounded-lg transform -rotate-2 shadow-lg border-2 border-white group-hover:rotate-0 group-hover:scale-110 transition duration-300">
+                <div class="text-3xl font-black">1,2%*</div>
+                <div class="text-[10px] uppercase font-bold text-blue-200">Sudah termasuk PPN</div>
+            </div>
+
+            {{-- Sisi Kanan: Slogan & Link --}}
+            <div class="text-right hidden sm:block">
+                <div class="bg-orange-50 text-orange-600 border border-orange-500 px-3 py-1 rounded-md font-bold italic mb-1 text-xs">
+                    Semua event creator
+                </div>
+                <div class="text-gray-800 font-black text-2xl tracking-tighter group-hover:text-blue-900 transition">
+                    #PASTIBISA
+                </div>
+                <div class="text-[9px] text-gray-400 text-right mt-1 font-bold uppercase tracking-tighter">
+                    *S&K Berlaku | hero.loket.com/pastibisa
+                </div>
+            </div>
+        </div>
+
+        {{-- Efek Kilauan (Overlay) saat di-hover --}}
+        <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
+    </a>
+</div>
+
+    <div class="max-w-7xl mx-auto mt-12 px-4 mb-20">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <h2 class="text-2xl font-extrabold text-blue-900">LOKET Screen</h2>
+                <span class="bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">BARU</span>
+            </div>
+            <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 hover:underline">
+                Lihat lebih banyak ❯
+            </a>
+        </div>
+
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        
+        @php
+        // 1. Ini adalah list gambar asli Anda (pastikan URL ini valid)
+        $imagesFromDatabase = [
+            "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400", // Contoh 1
+            "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400", // Contoh 2
+            "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400", // Contoh 3
+            // List Anda hanya berisi 3, jadi kita butuh fallback untuk yang ke-4
+        ];
+
+        // 2. Ini adalah URL gambar cadangan (placeholder)
+        $placeholderImageUrl = "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=400"; // Contoh: Gunakan gambar konser atau poster film generik
+        @endphp
+
+        {{-- 3. Kita paksa loop berjalan 4 kali --}}
+        @foreach(range(0, 3) as $i)
+        <div class="group cursor-pointer">
+            <div class="overflow-hidden rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 border border-gray-200">
+                
+                {{-- 
+                   4. PENYELAMAT: Cek apakah gambar asli ada di posisi $i. 
+                   Jika ada, pakai itu. Jika tidak ada, pakai placeholder.
+                --}}
+                @php
+                    $src = $imagesFromDatabase[$i] ?? $placeholderImageUrl;
+                @endphp
+
+                <img src="{{ $src }}" 
+                     alt="Poster {{ $i+1 }}" 
+                     class="w-full aspect-[2/3] object-cover">
+            </div>
+        </div>
+        @endforeach
+
+    </div>
+</div>
+
+<div class="bg-[#0f172a] py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-white text-2xl font-black italic uppercase tracking-tighter mb-8">Top Events</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @php
+            // Data dummy untuk contoh, sesuaikan slug/id dengan database-mu nanti
+            $topEvents = [
+                ['img' => "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=600", 'slug' => 'afgan-retrospektif-2026'],
+                ['img' => "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=600", 'slug' => 'event-keren-2'],
+                ['img' => "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600", 'slug' => 'event-keren-3']
+            ];
+            @endphp
+
+            @foreach($topEvents as $index => $event)
+            {{-- Bungkus dengan <a> untuk pindah halaman --}}
+            <a href="{{ route('eventsshow.create', ['slug' => $event['slug']]) }}" class="flex items-center gap-4 group cursor-pointer">
+                
+                {{-- Angka Urutan dengan efek stroke --}}
+                <div class="text-6xl md:text-8xl font-black text-transparent transition-all duration-300 group-hover:scale-110 group-hover:text-blue-500/10" 
+                     style="-webkit-text-stroke: 2px #64748b; font-family: sans-serif;">
+                    {{ $index + 1 }}
+                </div>
+
+                {{-- Container Gambar --}}
+                <div class="flex-1 overflow-hidden rounded-xl shadow-lg border border-gray-700 relative">
+                    <img src="{{ $event['img'] }}" 
+                         class="w-full h-32 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                    
+                    {{-- Overlay warna saat Hover agar senada dengan LOKET --}}
+                    <div class="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </div>
+</div><div class="max-w-7xl mx-auto mt-12 px-4">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-xl font-black italic uppercase tracking-tighter mb-6 text-blue-900">Kategori Event</h2>
+        
+        <div class="grid grid-cols-3 md:grid-cols-9 gap-4 mb-8">
+            @php
+            $kategori = [
+                ['name' => 'Festival & Pameran', 'color' => 'bg-orange-400', 'icon' => '🎡', 'slug' => 'festival'],
+                ['name' => 'Konser', 'color' => 'bg-blue-500', 'icon' => '🎤', 'slug' => 'konser'],
+                ['name' => 'Konferensi', 'color' => 'bg-yellow-500', 'icon' => '💼', 'slug' => 'konferensi'],
+                ['name' => 'Workshop', 'color' => 'bg-pink-500', 'icon' => '🎨', 'slug' => 'workshop'],
+                ['name' => 'Pertunjukan', 'color' => 'bg-orange-300', 'icon' => '🎭', 'slug' => 'pertunjukan'],
+                ['name' => 'Atraksi', 'color' => 'bg-blue-400', 'icon' => '🎪', 'slug' => 'atraksi'],
+                ['name' => 'Social Gathering', 'color' => 'bg-pink-400', 'icon' => '📷', 'slug' => 'gathering'],
+                ['name' => 'Tur', 'color' => 'bg-yellow-400', 'icon' => '🗺️', 'slug' => 'tur'],
+                ['name' => 'Turnamen', 'color' => 'bg-yellow-600', 'icon' => '🏆', 'slug' => 'turnamen'],
+            ];
+            @endphp
+
+            @foreach($kategori as $kat)
+            {{-- Bungkus dengan <a> --}}
+            <a href="{{ route('jelajah.create', ['category' => $kat['slug']]) }}" class="text-center group cursor-pointer block">
+                <div class="{{ $kat['color'] }} aspect-square rounded-xl flex items-center justify-center text-3xl mb-2 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md">
+                    {{ $kat['icon'] }}
+                </div>
+                <p class="text-[10px] font-black uppercase italic text-gray-500 leading-tight transition group-hover:text-blue-600">{{ $kat['name'] }}</p>
+            </a>
+            @endforeach
+        </div>
+
+        {{-- Tag Buttons --}}
+        <div class="flex flex-wrap gap-3 justify-center">
+            @foreach(['Keluarga & Anak', 'Bisnis & Keuangan', 'Media & Hiburan', 'Fashion & Kecantikan', 'Hobi & Gaya Hidup'] as $tag)
+            <a href="{{ route('eventsshow.create', ['tag' => Str::slug($tag)]) }}" 
+               class="px-4 py-2 border border-gray-200 rounded-full text-[10px] font-black uppercase italic text-gray-500 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 flex items-center gap-2 shadow-sm">
+                <span>✨</span> {{ $tag }}
+            </a>
+            @endforeach
+        </div>
+    </div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 px-4 relative group">
+    <h2 class="text-2xl font-black italic uppercase tracking-tighter mb-6 text-blue-900">Healing Dulu Yuk!</h2>
+
+    {{-- Tombol Navigasi Kiri --}}
+    <button onclick="sideScroll('slider-healing', 'left')" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+
+    <div id="slider-healing" 
+         class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-4 px-1">
+        
+        @php
+        $healing = [
+            ['title' => 'UP at Thamrin Nine', 'price' => 'Rp70.182', 'img' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400', 'slug' => 'up-thamrin-nine'],
+            ['title' => 'ANCOL TAMAN IMPIAN', 'price' => 'Rp77.729', 'img' => 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400', 'slug' => 'ancol-taman-impian'],
+            ['title' => 'Pantai Indah Kapuk', 'price' => 'Rp50.000', 'img' => 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400', 'slug' => 'pik-beach'],
+            ['title' => 'Dufan Ancol', 'price' => 'Rp250.000', 'img' => 'https://images.unsplash.com/photo-1513889959010-65341817bdd2?q=80&w=400', 'slug' => 'dufan-ancol'],
+            ['title' => 'Sea World Jakarta', 'price' => 'Rp110.000', 'img' => 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=400', 'slug' => 'sea-world'],
+        ];
+        @endphp
+
+        @foreach($healing as $h)
+        {{-- BUNGKUS DENGAN TAG <a> --}}
+        <a href="{{ route('eventsshow.create', ['slug' => $h['slug']]) }}" 
+           class="min-w-[280px] md:min-w-[300px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
             
-            <div class="shrink-0">
-                <h1 class="text-white text-3xl font-black italic tracking-tighter">
-                    LOKÉT <span class="text-xl not-italic font-bold text-blue-400">12 Tahun</span>
-                </h1>
-            </div>
-
-            <div class="flex-grow max-w-[700px] mx-12">
-                <div class="relative flex">
-                    <input 
-                        type="text" 
-                        placeholder="Cari event seru di sini" 
-                        class="w-full bg-[#051d38] text-white border-none rounded-l-lg py-3 px-5 focus:ring-1 focus:ring-blue-500 placeholder-gray-400"
-                    >
-                    <button class="bg-[#005ccb] hover:bg-blue-600 px-6 rounded-r-lg flex items-center justify-center transition">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                </div>
-                <div class="flex gap-4 mt-3 text-[11px] text-gray-400">
-                    <a href="#" class="hover:text-white">#Promo_Indodana</a>
-                    <a href="#" class="hover:text-white">#LOKETPLus</a>
-                    <a href="#" class="hover:text-white">#LOKETScreen</a>
-                    <a href="#" class="hover:text-white">#LOKET_Promo</a>
-                    <a href="#" class="hover:text-white">#LoketAttraction</a>
+            <div class="relative overflow-hidden">
+                <img src="{{ $h['img'] }}" class="w-full h-44 object-cover group-hover/card:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-3 left-3 bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-1 rounded shadow-lg">
+                    Healing
                 </div>
             </div>
 
-            <div class="flex items-center gap-10 text-white font-bold text-[15px]">
-                <a href="#" class="flex items-center gap-2 hover:text-blue-400 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span>Jelajah Event</span>
-                </a>
-                <a href="#" class="flex items-center gap-2 hover:text-blue-400 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span>Tiket Saya</span>
-                </a>
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer border-2 border-transparent hover:border-blue-400 transition">
-                    <svg class="w-7 h-7 text-[#00254d]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            <div class="p-4">
+                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight group-hover/card:text-blue-600 transition">{{ $h['title'] }}</h3>
+                <p class="text-gray-400 text-[9px] mt-1 font-bold uppercase italic tracking-wider">27 Des 2025 - 30 Apr 2026</p>
+                <p class="font-black text-blue-900 mt-2 text-lg italic tracking-tighter">{{ $h['price'] }}</p>
+                
+                <div class="mt-4 flex items-center gap-2 border-t border-gray-50 pt-3">
+                    <div class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[8px] text-white font-black">L</div>
+                    <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest italic">Official Partner</span>
                 </div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+
+    {{-- Tombol Navigasi Kanan --}}
+    <button onclick="sideScroll('slider-healing', 'right')" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+</div>
+
+{{-- Script untuk Scroll Horizontal --}}
+<script>
+    function sideScroll(elementId, direction) {
+        const container = document.getElementById(elementId);
+        const scrollAmount = 320; // Lebar card + gap
+        if (direction === 'left') {
+            container.scrollLeft -= scrollAmount;
+        } else {
+            container.scrollLeft += scrollAmount;
+        }
+    }
+</script>
+<style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+{{-- 1. KREATOR FAVORIT --}}
+<div class="max-w-7xl mx-auto mt-16 px-4 mb-24">
+    <h2 class="text-2xl font-black italic uppercase tracking-tighter mb-8 text-blue-900">Kreator Favorit</h2>
+    
+    <div class="flex items-start gap-12 overflow-x-auto pb-6 scrollbar-hide">
+        @php
+        $kreators = [
+            ['name' => 'Mantappu Academy', 'img' => 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=100', 'slug' => 'mantappu'],
+            ['name' => 'Ismaya Live', 'img' => 'https://images.unsplash.com/photo-1599305090598-fe179d501227?q=80&w=100', 'slug' => 'ismaya'],
+            ['name' => 'PK Entertainment', 'img' => 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=100', 'slug' => 'pk-ent'],
+            ['name' => 'Dyandra Promosindo', 'img' => 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=100', 'slug' => 'dyandra'],
+            ['name' => 'Ancol Official', 'img' => 'https://images.unsplash.com/photo-1599305090598-fe179d501227?q=80&w=100', 'slug' => 'ancol'],
+        ];
+        @endphp
+
+        @foreach($kreators as $k)
+        {{-- BUNGKUS DENGAN TAG <a> --}}
+        <a href="{{ route('eventsshow.create', ['creator' => $k['slug']]) }}" class="min-w-[100px] flex flex-col items-center group cursor-pointer text-center">
+            <div class="w-20 h-20 rounded-full bg-white border-4 border-gray-100 shadow-sm flex items-center justify-center overflow-hidden group-hover:border-blue-500 group-hover:shadow-md transition-all p-1 mb-3">
+                <img src="{{ $k['img'] }}" alt="{{ $k['name'] }}" class="w-full h-full object-cover rounded-full">
+            </div>
+            <span class="text-[10px] font-black uppercase italic text-gray-700 leading-tight group-hover:text-blue-600 transition-colors">
+                {{ $k['name'] }}
+            </span>
+        </a>
+        @endforeach
+    </div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 px-4 relative group">
+    
+    @php
+    if (!isset($workshops)) {
+        $workshops = [
+            ['title' => 'Certified International Supply Chain Professional', 'price' => 'Rp5.000.000', 'img' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=400', 'date' => '13 - 15 Apr 2026'],
+            ['title' => 'High Performance Leadership Masterclass', 'price' => 'Rp2.500.000', 'img' => 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=400', 'date' => '14 Apr 2026'],
+            ['title' => 'BRAND OWNER FORUM: Fashion Brand', 'price' => 'Rp99.000', 'img' => 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=400', 'date' => '17 Apr 2026'],
+            ['title' => 'Kelas Marketeers: Key Account Management', 'price' => 'Rp3.330.000', 'img' => 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=400', 'date' => '16 - 17 Apr 2026'],
+            ['title' => 'WOW Brand 2026: Branding in AI Age', 'price' => 'Rp666.000', 'date' => '16 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400', 'org' => 'Marketeers'],
+
+            ];
+    }
+
+    if (!isset($populer)) {
+        $populer = [
+            ['title' => 'High Performance Leadership: Leading Team', 'price' => 'Rp2.500.000', 'date' => '14 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400', 'org' => 'Akselerasi Indonesia'],
+            ['title' => 'Workshop Supply Chain (CISCP)', 'price' => 'Rp5.000.000', 'date' => '13 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=400', 'org' => 'PT Husin Intelligence'],
+            ['title' => 'Cerita Miskinku - Coming Soon', 'price' => 'Rp25.000', 'date' => '15 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400', 'org' => 'Standup Cinere'],
+            ['title' => 'WOW Brand 2026: Branding in AI Age', 'price' => 'Rp666.000', 'date' => '16 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400', 'org' => 'Marketeers'],
+         ['title' => 'WOW Brand 2026: Branding in AI Age', 'price' => 'Rp666.000', 'date' => '16 Apr 2026', 'img' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400', 'org' => 'Marketeers'],
+
+            ];
+    }
+@endphp
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<div class="max-w-7xl mx-auto mt-12 px-4 relative group">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900">Workshop & Pelatihan</h2>
+        <a href="#" class="text-blue-600 font-black italic text-xs uppercase hover:underline flex items-center gap-1">Lihat semua ❯</a>
+    </div>
+
+    <button onclick="sideScroll('slider-ws', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+
+    <div id="slider-ws" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6">
+        @foreach($workshops as $ws)
+        {{-- BUNGKUS DENGAN TAG <a> --}}
+        <a href="{{ route('eventsshow.create', ['slug' => Str::slug($ws['title'])]) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
+            <div class="relative overflow-hidden">
+                <img src="{{ $ws['img'] }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $ws['title'] }}</h3>
+                <p class="text-gray-400 text-[9px] font-black uppercase italic my-2 tracking-wider">{{ $ws['date'] }}</p>
+                <p class="font-black text-blue-900 text-lg italic tracking-tighter">{{ $ws['price'] }}</p>
+            </div>
+        </a>
+        @endforeach
+    </div>
+
+    <button onclick="sideScroll('slider-ws', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+    </button>
+</div>
+<div class="max-w-7xl mx-auto mt-12 px-4 mb-20 relative group">
+    <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900 mb-6">Populer di <span class="text-blue-600">Jakarta ▾</span></h2>
+
+    <button onclick="sideScroll('slider-pk', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+
+    <div id="slider-pk" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6">
+        @foreach($populer as $p)
+        {{-- BUNGKUS DENGAN TAG <a> --}}
+        <a href="{{ route('eventsshow.create', ['slug' => Str::slug($p['title'])]) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
+            <div class="relative overflow-hidden">
+                <img src="{{ $p['img'] }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $p['title'] }}</h3>
+                <p class="font-black text-blue-900 text-lg mt-4 italic tracking-tighter">{{ $p['price'] }}</p>
+                <div class="mt-2 text-[9px] font-black text-gray-400 uppercase italic tracking-widest border-t border-gray-50 pt-2">{{ $p['org'] }}</div>
+            </div>
+        </a>
+        @endforeach
+    </div>
+
+    <button onclick="sideScroll('slider-pk', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+    </button>
+</div>
+
+    <div class="flex justify-center mt-12">
+        <a href="{{ route('jelajah.create')}}" class="inline-flex items-center gap-2 px-8 py-2.5 border-2 border-blue-500 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-sm group">
+            Jelajah Lebih Banyak Event
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</div>
+<footer class="bg-blue-900 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            
+            <div>
+                <div class="text-3xl font-black italic mb-4">LOKET</div>
+                <p class="text-sm text-blue-200 leading-relaxed mb-6">
+                    Platform manajemen event dan penjualan tiket terpercaya di Indonesia. Buat event-mu sekarang!
+                </p>
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center hover:bg-blue-700 cursor-pointer transition-colors">📸</div>
+                    <div class="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center hover:bg-blue-700 cursor-pointer transition-colors">🐦</div>
+                    <div class="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center hover:bg-blue-700 cursor-pointer transition-colors">📘</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-6">Rayakan Eventmu</h4>
+                <ul class="space-y-3 text-sm text-blue-200">
+                    <li><a href="#" class="hover:text-white transition-colors">Cara Jual Tiket</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Sistem Manajemen Event</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">LOKET Distribution Network</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">LOKET untuk Promotor</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-6">Tentang Loket</h4>
+                <ul class="space-y-3 text-sm text-blue-200">
+                    <li><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Karir</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Hubungi Kami</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-6">Bantuan & Panduan</h4>
+                <ul class="space-y-3 text-sm text-blue-200">
+                    <li><a href="#" class="hover:text-white transition-colors">Pusat Bantuan</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Panduan Keamanan</a></li>
+                </ul>
             </div>
 
         </div>
+
+        <div class="pt-20 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-xs text-blue-300">
+                © 2026 PT Global Tiket Network. All Rights Reserved.
+            </div>
+            <div class="flex items-center gap-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
+                <span class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Part of</span>
+                <div class="font-black text-xl italic text-white">tiket<span class="text-blue-400">.com</span></div>
+            </div>
+        </div>
     </div>
-</header>
-</html>
+    <div class="pt-20 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-xs text-blue-300">
+                © 2026 PT Global Tiket Network. All Rights Reserved.
+            </div>
+            <div class="flex items-center gap-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
+                <span class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Part of</span>
+                <div class="font-black text-xl italic text-white ">tiket<span class="text-blue-400">.com</span></div>
+            </div>
+        </div>
+        
+</footer>
+<script>
+// ===== LOGIK SLIDER BANNER UTAMA =====
+let index = 0;
+const slides = document.getElementById("slides");
+const totalSlides = slides.children.length;
+
+function updateSlide() {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide() {
+    index = (index + 1) % totalSlides;
+    updateSlide();
+}
+
+function prevSlide() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateSlide();
+}
+
+// Otomatis jalan setiap 5 detik
+setInterval(nextSlide, 5000);
+
+// ===== LOGIK SLIDER FEATURED EVENTS (DIPERBAIKI) =====
+let eventIndex = 0;
+const eventSlides = document.getElementById("eventSlides");
+
+function updateEvent() {
+    const containerWidth = eventSlides.parentElement.offsetWidth;
+    const totalWidth = eventSlides.scrollWidth;
+    let moveDistance = eventIndex * (containerWidth / 2); // Geser setengah kontainer
+
+    if (moveDistance > totalWidth - containerWidth) {
+        moveDistance = totalWidth - containerWidth;
+    }
+
+    eventSlides.style.transform = `translateX(-${moveDistance}px)`;
+}
+
+function nextEvent() {
+    const containerWidth = eventSlides.parentElement.offsetWidth;
+    const totalWidth = eventSlides.scrollWidth;
+    const currentTranslate = eventIndex * (containerWidth / 2);
+
+    if (currentTranslate + containerWidth < totalWidth) {
+        eventIndex++;
+        updateEvent();
+    }
+}
+
+function prevEvent() {
+    if (eventIndex > 0) {
+        eventIndex--;
+        updateEvent();
+    }
+}
+</script>
+<script>
+function sideScroll(elementId, direction) {
+    const container = document.getElementById(elementId);
+    const scrollAmount = 320; // Sesuaikan dengan lebar kartu + gap
+    
+    if (direction === 'left') {
+        container.scrollLeft -= scrollAmount;
+    } else {
+        container.scrollLeft += scrollAmount;
+    }
+}
+</script>
+<script>
+    function sideScroll(elementId, direction) {
+        const container = document.getElementById(elementId);
+        if (container) {
+            const scrollAmount = 350; 
+            direction === 'left' ? container.scrollLeft -= scrollAmount : container.scrollLeft += scrollAmount;
+        }
+    }
+</script>
+</x-app-layout>
