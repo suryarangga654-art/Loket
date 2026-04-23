@@ -10,76 +10,92 @@
     <div class="bg-gray-50 flex min-h-screen" x-data="{ role: 'creator', view: 'event' }">
         
          <aside class="w-64 bg-[#1a2b4c] text-gray-300 flex flex-col sticky top-0 h-screen shadow-xl z-30">
-            <div class="p-6 flex items-center gap-2">
-                <a href="{{ url('/') }}" class="hover:opacity-80 transition">
-                    <h1 class="text-white font-bold text-xl tracking-tighter">
-                        LOKET<span class="bg-white text-[#1a2b4c] text-[10px] px-1 ml-1 rounded font-black uppercase">12 Tahun</span>
-                    </h1>
+    <div class="p-6 flex items-center gap-2">
+        <a href="{{ url('/') }}" class="hover:opacity-80 transition">
+            <h1 class="text-white font-bold text-xl tracking-tighter">
+                LOKET<span class="bg-white text-[#1a2b4c] text-[10px] px-1 ml-1 rounded font-black uppercase">12 Tahun</span>
+            </h1>
+        </a>
+    </div>
+
+    <div x-show="role === 'creator'" x-transition class="px-4 mb-6">
+        <div class="bg-[#253a63] p-3 rounded-lg flex items-center gap-3 border border-gray-700">
+            <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl shadow-lg">
+                <i class="fa-solid fa-face-smile text-white"></i>
+            </div>
+            <div class="overflow-hidden">
+                <p class="text-[11px] font-bold text-white truncate uppercase tracking-tight">M FAIZAL KURNIA...</p>
+                <p class="text-[10px] text-gray-400 font-medium">Admin</p>
+            </div>
+            <i class="fa-solid fa-chevron-up-down text-[10px] ml-auto text-gray-500"></i>
+        </div>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto">
+        <div x-show="role === 'creator'" x-transition class="flex flex-col">
+            <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
+            
+            <a href="{{ route('dashboardcreator.create')}}" 
+               class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('tiket.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
+            </a>
+
+            <a href="{{ route('event-saya.create')}}" 
+               class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('event-saya.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                <i class="fa-solid fa-calendar-check mr-3 w-5 text-center"></i> Event Saya
+            </a>
+
+            <a href="{{ route('kelola-akses.create')}}" 
+               class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('kelola-akses.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                <i class="fa-solid fa-users mr-3 w-5 text-center"></i> Kelola Akses
+            </a>
+        </div>
+
+        <div x-show="role === 'pembeli'" x-transition x-cloak class="flex flex-col">
+            <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Menu</div>
+            <a href="{{ route('jelajah.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 border-l-4 border-transparent hover:bg-[#253a63] hover:text-white transition-all">
+                <i class="fa-solid fa-compass mr-3 w-5 text-center"></i> Jelajah Event
+            </a>
+            <a href="{{ route('tiket.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 border-l-4 border-transparent hover:bg-[#253a63] hover:text-white transition-all">
+                <i class="fa-solid fa-ticket mr-3 w-5 text-center"></i> Tiket Saya
+            </a>
+        </div>
+
+        <div class="flex flex-col mt-6">
+            <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Akun</div>
+            
+            <a href="{{ route('informasi.create')}}" 
+               class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('informasi.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
+            </a>
+
+            <a href="{{ route('pengaturan.create')}}" 
+               class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('pengaturan.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                <i class="fa-solid fa-gear mr-3 w-5 text-center"></i> Pengaturan
+            </a>
+
+            <div x-show="role === 'creator'" x-transition x-cloak class="flex flex-col">
+                <a href="{{ route('informasi-legal.create')}}" 
+                   class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('informasi-legal.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                    <i class="fa-solid fa-file-invoice mr-3 w-5 text-center"></i> Informasi Legal
+                </a>
+                <a href="{{ route('rekening.create')}}" 
+                   class="flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 {{ request()->routeIs('rekening.create') ? 'bg-blue-600 text-white border-blue-400 font-semibold' : 'text-gray-400 border-transparent hover:bg-[#253a63] hover:text-white' }}">
+                    <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i> Rekening
                 </a>
             </div>
+        </div>
 
-            <div x-show="role === 'creator'" x-transition class="px-4 mb-6">
-                <div class="bg-[#253a63] p-3 rounded-lg flex items-center gap-3 border border-gray-700">
-                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-face-smile text-white"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <p class="text-[11px] font-bold text-white truncate">M FAIZAL KURNIA...</p>
-                        <p class="text-[10px] text-gray-400">Admin</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-up-down text-[10px] ml-auto text-gray-500"></i>
-                </div>
-            </div>
-
-            <nav class="flex-1 overflow-y-auto">
-                <div x-show="role === 'creator'" x-transition>
-                    <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
-                    <a href="{{ route('tiket.create')}}" class="sidebar-link active">
-                        <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
-                    </a>
-                    <a href="{{ route('event-saya.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-calendar-check mr-3 w-5 text-center"></i> Event Saya
-                    </a>
-                    <a href="{{ route('kelola-akses.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-users mr-3 w-5 text-center"></i> Kelola Akses
-                    </a>
-                </div>
-
-                <div x-show="role === 'pembeli'" x-transition x-cloak>
-                    <a href="{{ route('jelajah.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-compass mr-3 w-5 text-center"></i> Jelajah Event
-                    </a>
-                    <a href="{{ route('tiket.create')}}" class="sidebar-link active">
-                        <i class="fa-solid fa-ticket mr-3 w-5 text-center"></i> Tiket Saya
-                    </a>
-                </div>
-
-                <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Akun</div>
-                <a href="{{ route('informasi.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
-                </a>
-                <a href="{{ route('pengaturan.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-gear mr-3 w-5 text-center"></i> Pengaturan
-                </a>
-
-                <div x-show="role === 'creator'" x-transition x-cloak>
-                    <a href="{{ route('informasi-legal.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-file-invoice mr-3 w-5 text-center"></i> Informasi Legal
-                    </a>
-                    <a href="{{ route('rekening.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i> Rekening
-                    </a>
-                </div>
-
-                <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Mode User</div>
-                <button @click="role = (role === 'pembeli' ? 'creator' : 'pembeli')" 
-                        class="w-full sidebar-link inactive hover:text-blue-400 group">
-                    <i class="fa-solid fa-right-left mr-3 w-5 text-center group-hover:rotate-180 transition-transform duration-500"></i> 
-                    <span x-text="role === 'pembeli' ? 'Beralih ke Event Creator' : 'Beralih ke Pembeli'"></span>
-                </button>
-            </nav>
-        </aside>
-
+        <div class="flex flex-col mt-auto pb-6">
+            <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Mode User</div>
+            <button @click="role = (role === 'pembeli' ? 'creator' : 'pembeli')" 
+                    class="flex items-center px-6 py-3 text-sm text-gray-400 border-l-4 border-transparent hover:text-blue-400 group transition-all">
+                <i class="fa-solid fa-right-left mr-3 w-5 text-center group-hover:rotate-180 transition-transform duration-500"></i> 
+                <span x-text="role === 'pembeli' ? 'Beralih ke Creator' : 'Beralih ke Pembeli'"></span>
+            </button>
+        </div>
+    </nav>
+</aside>
 
         <main class="flex-1 flex flex-col min-w-0">
             <header class="h-16 bg-white border-b flex items-center justify-between px-8 sticky top-0 z-20 shadow-sm">

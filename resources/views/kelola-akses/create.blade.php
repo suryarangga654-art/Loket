@@ -22,7 +22,7 @@
 
             <nav class="flex-1 overflow-y-auto">
                 <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
-                <a href="{{ route('tiket.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+                <a href="{{ route('dashboardcreator.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
                     <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
                 </a>
                 <a href="{{ route('event-saya.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
@@ -36,6 +36,9 @@
                 <a href="{{ route('informasi.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
                     <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
                 </a>
+                <a href="{{ route('pengaturan.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> pengaturan
+    </a>
                 <a href="{{ route('informasi-legal.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
                     <i class="fa-solid fa-file-shield mr-3 w-5 text-center"></i> Informasi Legal
                 </a>

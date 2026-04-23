@@ -41,7 +41,7 @@
         <i class="fa-solid fa-gear mr-3 text-sm"></i> Pengaturan
     </a>
      <div class="px-6 mt-8 mb-2 text-[10px] uppercase font-bold tracking-wider text-gray-500">Mode User</div>
-                <a href="#" class="flex items-center px-6 py-3 hover:bg-[#253a63] transition">
+                <a href="{{ route('kelola-akses.create')}}" class="flex items-center px-6 py-3 hover:bg-[#253a63] transition">
                     <i class="fa-solid fa-right-left mr-3 text-sm"></i> Beralih ke Event Creator
                 </a>
 </nav>

@@ -1,195 +1,173 @@
-<x-app-layout>
-    <style>
-        [x-cloak] { display: none !important; }
-        /* Style Sidebar Link biar mirip LOKET */
-        .sidebar-link { @apply flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 border-transparent; }
-        .sidebar-link.active { @apply bg-blue-600 text-white border-blue-400 font-semibold; }
-        .sidebar-link.inactive { @apply text-gray-400 hover:bg-[#253a63] hover:text-white; }
-        /* Style Card Statistik Dashboard */
-        .card-stat { @apply bg-white p-6 rounded border border-gray-100 shadow-sm flex flex-col justify-between; }
-    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiket Saya - Loket Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 flex">
 
-    <div class="bg-gray-50 flex min-h-screen" x-data="{ role: 'creator' }">
+    <aside class="w-64 bg-[#1a2b4c] min-h-screen text-gray-300 flex flex-col justify-between">
+        <div>
+           <div class="p-6">
+    <a href="{{ url('/') }}" class="hover:opacity-80 transition">
+        <h1 class="text-white font-bold text-xl flex items-center">
+            LOKET<span class="bg-white text-[#1a2b4c] text-xs px-1 ml-1 rounded">12 Tahun</span>
+        </h1>
+    </a>
+</div>
 
-        <aside class="w-64 bg-[#1a2b4c] text-gray-300 flex flex-col sticky top-0 h-screen shadow-xl z-30">
-            <div class="p-6 flex items-center gap-2">
-                <a href="{{ url('/') }}" class="hover:opacity-80 transition">
-                    <h1 class="text-white font-bold text-xl tracking-tighter">
-                        LOKET<span class="bg-white text-[#1a2b4c] text-[10px] px-1 ml-1 rounded font-black uppercase">12 Tahun</span>
-                    </h1>
+            <nav class="mt-4">
+                <a href="{{ route('jelajah.create')}}" class="flex items-center px-6 py-3 hover:bg-[#253a63] transition">
+                    <i class="fa-solid fa-compass mr-3"></i> Jelajah Event
                 </a>
+    <a href="{{ route('tiket.create') }}" class="flex items-center px-6 py-3 transition {{ request()->routeIs('tiket.create') ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-[#253a63]' }}">
+        <i class="fa-solid fa-ticket mr-3"></i> Tiket Saya
+    </a>
+
+    <div class="px-6 mt-8 mb-2 text-[10px] uppercase font-bold tracking-wider text-gray-500">Akun</div>
+
+    <a href="{{ route('informasi.create') }}" class="flex items-center px-6 py-3 transition {{ request()->routeIs('informasi.create') ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-[#253a63]' }}">
+        <i class="fa-solid fa-user mr-3 text-sm"></i> Informasi Dasar
+    </a>
+
+    <a href="{{ route('pengaturan.create') }}" class="flex items-center px-6 py-3 transition {{ request()->routeIs('pengaturan.create') ? 'bg-blue-600 text-white font-semibold' : 'text-gray-300 hover:bg-[#253a63]' }}">
+        <i class="fa-solid fa-gear mr-3 text-sm"></i> Pengaturan
+    </a>
+    <div class="px-6 mt-8 mb-2 text-[10px] uppercase font-bold tracking-wider text-gray-500">Mode User</div>
+                <a href="{{ route('dashboardcreator.create')}}" class="flex items-center px-6 py-3 hover:bg-[#253a63] transition">
+                    <i class="fa-solid fa-right-left mr-3 text-sm"></i> Beralih ke Event Creator
+                </a>
+</nav>
+        </div>
+
+        <div class="p-4 border-t border-gray-700 text-sm">
+            <button class="flex items-center hover:text-white">
+                <i class="fa-solid fa-circle-chevron-left mr-2"></i> Singkat Menu
+            </button>
+        </div>
+    </aside>
+        <main class="flex-1 flex flex-col">
+
+        
+
+    <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg py-2 z-50">
+         <a href="{{ route('jelajah.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Jelajah Event
+                            </a>
+
+                            <a href="{{ route('tiket.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Tiket Saya
+                            </a>
+                            <hr>
+                            <a href="{{ route('informasi.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                Informasi Dasar
+                            </a>
+                            <a href="{{ route('pengaturan.create')}}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                </svg>
+                                 Pengaturan                            
+                                </a>
+        <hr class="my-2 border-gray-100">
+        <form action="#" method="POST">
+            <button type="submit" class="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                <i class="fa-solid fa-right-from-bracket mr-3"></i> Keluar
+            </button>
+        </form>
+    </div>
+</div>
+        </div>
+    </header>
+
+            <header class="h-16 bg-white border-b flex items-center justify-between px-8 sticky top-0 z-30 shadow-sm">
+            <div class="flex items-center gap-8">
+                <h2 class="text-lg font-bold text-gray-800 tracking-tight">Tiket Saya</h2>
             </div>
-
-            <div x-show="role === 'creator'" x-transition class="px-4 mb-6">
-                <div class="bg-[#253a63] p-3 rounded-lg flex items-center gap-3 border border-gray-700">
-                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-face-smile text-white"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <p class="text-[11px] font-bold text-white truncate">M FAIZAL KURNIA...</p>
-                        <p class="text-[10px] text-gray-400">Admin</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-up-down text-[10px] ml-auto text-gray-500"></i>
-                </div>
-            </div>
-
-            <nav class="flex-1 overflow-y-auto">
-                <div x-show="role === 'creator'" x-transition>
-                    <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
-                    <a href="" class="sidebar-link active">
-                        <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
-                    </a>
-                    <a href="{{ route('event-saya.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-calendar-check mr-3 w-5 text-center"></i> Event Saya
-                    </a>
-                    <a href="{{ route('kelola-akses.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-users mr-3 w-5 text-center"></i> Kelola Akses
-                    </a>
-                </div>
-
-                <div x-show="role === 'pembeli'" x-transition x-cloak>
-                    <a href="{{ route('jelajah.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-compass mr-3 w-5 text-center"></i> Jelajah Event
-                    </a>
-                    <a href="{{ route('tiket.create')}}" class="sidebar-link active">
-                        <i class="fa-solid fa-ticket mr-3 w-5 text-center"></i> Tiket Saya
-                    </a>
-                </div>
-
-                <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Akun</div>
-                <a href="{{ route('informasi.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
-                </a>
-                <a href="{{ route('pengaturan.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-gear mr-3 w-5 text-center"></i> Pengaturan
-                </a>
-
-                <div x-show="role === 'creator'" x-transition x-cloak>
-                    <a href="{{ route('informasi-legal.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-file-invoice mr-3 w-5 text-center"></i> Informasi Legal
-                    </a>
-                    <a href="{{ route('rekening.create')}}" class="sidebar-link inactive">
-                        <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i> Rekening
-                    </a>
-                </div>
-
-                <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Mode User</div>
-                <button @click="role = (role === 'pembeli' ? 'creator' : 'pembeli')" 
-                        class="w-full sidebar-link inactive hover:text-blue-400 group">
-                    <i class="fa-solid fa-right-left mr-3 w-5 text-center group-hover:rotate-180 transition-transform duration-500"></i> 
-                    <span x-text="role === 'pembeli' ? 'Beralih ke Event Creator' : 'Beralih ke Pembeli'"></span>
+            
+            <div class="flex items-center gap-4">
+                <button class="flex items-center gap-2 bg-[#b2b9c5] text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-500 transition">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    Buat Event
                 </button>
-            </nav>
-        </aside>
 
-        <main class="flex-1 flex flex-col min-w-0">
-            <header class="h-16 bg-white border-b flex items-center justify-between px-8 sticky top-0 z-20 shadow-sm">
-                <h2 class="text-lg font-bold text-gray-700 uppercase tracking-tighter italic" 
-                    x-text="role === 'creator' ? 'Dashboard Creator' : 'Tiket Saya'"></h2>
-                
-                <div class="flex items-center gap-4">
-                    <button class="border-2 border-gray-800 text-gray-800 px-4 py-1.5 rounded-md flex items-center text-xs font-black hover:bg-gray-800 hover:text-white transition uppercase">
-                        <i class="fa-solid fa-calendar-plus mr-2"></i> Buat Event
+                <div class="flex items-center gap-3 bg-[#f1f4f9] px-3 py-1.5 rounded-full border border-gray-100 cursor-pointer hover:bg-gray-200 transition">
+                    <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-[10px] text-white">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-gray-700 uppercase tracking-tighter">M FAIZAL KUR...</span>
+                    <i class="fa-solid fa-chevron-right text-[8px] text-gray-400"></i>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto p-8">
+            <div class="flex items-center gap-2 text-[10px] mb-8 font-bold tracking-tight text-gray-400">
+                <span class="bg-gray-100 px-2 py-1 rounded text-gray-500">Kamu di sini</span>
+                <span class="ml-2 text-gray-300">Tiket Saya</span>
+            </div>
+
+            <div class="border-b border-gray-200 mb-12">
+                <div class="flex gap-16">
+                    <button class="pb-4 text-sm font-bold text-gray-900 border-b-4 border-blue-600 relative">
+                        Event Aktif
                     </button>
-                    <div class="flex items-center gap-2 text-xs text-gray-500 border-l pl-4">
-                        <span>User:</span>
-                        <span class="font-bold text-gray-800 uppercase tracking-tighter">M FAIZAL KUR...</span>
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </div>
+                    <button class="pb-4 text-sm font-bold text-gray-400 hover:text-gray-600 transition">
+                        Event Lalu
+                    </button>
                 </div>
-            </header>
+            </div>
 
-            <div class="p-8">
-                <div class="flex items-center gap-2 text-[10px] mb-8 uppercase font-bold tracking-tighter text-gray-400">
-                    <span class="bg-gray-200 text-gray-600 px-2 py-1 rounded">Kamu di sini</span>
-                    <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                    <span class="text-blue-600" x-text="role === 'creator' ? 'Beranda Creator' : 'Tiket Saya'"></span>
-                </div>
-
-                <div x-show="role === 'creator'" x-transition:enter="duration-300 ease-out" class="space-y-6">
-                    <div class="bg-white border-2 border-blue-100 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between shadow-sm gap-4">
-                        <p class="text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-xs font-bold italic tracking-tight">
-                            Ayo selesaikan misi! Lengkapi akun profilmu untuk mulai berjualan.
-                        </p>
-                        <div class="flex gap-2 w-full md:w-auto">
-                            <button class="flex-1 bg-blue-600 text-white px-8 py-2 rounded font-bold text-xs hover:bg-blue-700 transition">Verifikasi</button>
-                            <button class="flex-1 bg-blue-600 text-white px-8 py-2 rounded font-bold text-xs hover:bg-blue-700 transition">Lengkapi</button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="card-stat min-h-[140px]">
-                            <div class="flex justify-between items-start">
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-building-columns mr-2 text-blue-500"></i> Event Aktif</span>
-                                <span class="text-orange-500 text-[10px] font-bold cursor-pointer hover:underline">Detail <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-4">
-                                <span class="text-6xl font-light text-gray-800">0</span>
-                                <span class="text-gray-400 text-sm font-bold uppercase italic">Event</span>
-                            </div>
-                        </div>
-                        
-                        <div class="card-stat min-h-[140px]">
-                            <div class="flex justify-between items-start">
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-file-signature mr-2 text-emerald-500"></i> Event Draft</span>
-                                <span class="text-orange-500 text-[10px] font-bold cursor-pointer hover:underline">Detail <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-4">
-                                <span class="text-6xl font-light text-gray-800">0</span>
-                                <span class="text-gray-400 text-sm font-bold uppercase italic">Event</span>
-                            </div>
-                        </div>
-
-                        <div class="card-stat min-h-[140px] bg-slate-50">
-                            <div class="flex justify-between items-start">
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-receipt mr-2 text-purple-500"></i> Total Transaksi</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-4">
-                                <span class="text-6xl font-light text-gray-800">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                         <div class="card-stat border-t-4 border-t-orange-400">
-                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4"><i class="fa-solid fa-ticket mr-2 text-orange-400"></i> Total Tiket Terjual</span>
-                            <div class="flex items-baseline gap-2 border-t pt-4">
-                                <span class="text-6xl font-light text-gray-800">0</span>
-                                <span class="text-gray-400 text-sm font-bold uppercase italic">Tiket</span>
-                            </div>
-                        </div>
-
-                        <div class="card-stat border-t-4 border-t-emerald-400">
-                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4"><i class="fa-solid fa-money-bill-wave mr-2 text-emerald-500"></i> Total Penjualan</span>
-                            <div class="flex items-baseline gap-2 border-t pt-4">
-                                <span class="text-gray-400 text-2xl font-light">Rp</span>
-                                <span class="text-6xl font-light text-gray-800">0</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex flex-col items-center justify-center py-32">
+                <div class="mb-6">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-gray-400 opacity-60">
+                        <path d="M15 5H9C4 5 2 7 2 12C2 17 4 19 9 19H15C20 19 22 17 22 12C22 7 20 5 15 5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 13.5C10.1046 13.5 11 12.6046 11 11.5C11 10.3954 10.1046 9.5 9 9.5C7.89543 9.5 7 10.3954 7 11.5C7 12.6046 7.89543 13.5 9 13.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.99 12H15.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17.99 12H18.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
 
-                <div x-show="role === 'pembeli'" x-transition:enter="duration-300 ease-out" x-cloak>
-                    <div class="border-b mb-12 flex space-x-12">
-                        <button class="pb-4 text-sm font-black text-blue-600 border-b-4 border-blue-600 uppercase italic tracking-tighter">Event Aktif</button>
-                        <button class="pb-4 text-sm font-bold text-gray-400 hover:text-gray-600 transition uppercase italic tracking-tighter">Event Lalu</button>
-                    </div>
-                    
-                    <div class="flex flex-col items-center justify-center py-24 bg-white rounded-3xl border-2 border-dashed border-gray-100">
-                        <div class="relative mb-6">
-                            <i class="fa-solid fa-ticket-simple text-gray-100 text-[120px] rotate-12"></i>
-                            <i class="fa-solid fa-magnifying-glass text-blue-500 text-4xl absolute bottom-0 right-0"></i>
-                        </div>
-                        <h3 class="text-gray-800 font-black italic uppercase tracking-tighter text-xl mb-2">Tiket Masih Kosong</h3>
-                        <p class="text-gray-400 text-sm mb-6 text-center max-w-xs font-medium">
-                            Sepertinya kamu belum membeli tiket apapun. Yuk, cari event seru hari ini!
-                        </p>
-                        <a href="{{ route('jelajah.create') }}" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-200 uppercase italic">
-                            Cari Event Sekarang ❯
-                        </a>
-                    </div>
-                </div>
+                <h3 class="text-gray-500 text-sm font-medium text-center mb-2">
+                    Kamu belum memiliki tiket, silakan membeli tiket terlebih dahulu.
+                </h3>
+                
+                <a href="/" class="text-blue-600 text-sm font-bold hover:underline transition">
+                    Cari Event Sekarang
+                </a>
             </div>
         </main>
-    </div>
-</x-app-layout>
+    </main>
+</html>
+<script>
+    const profileButton = document.getElementById('profile-button');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const dropdownIcon = document.getElementById('dropdown-icon');
+
+    profileButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('hidden');
+        // Bonus: icon panah berputar saat diklik
+        dropdownIcon.classList.toggle('rotate-180');
+    });
+
+    // Menutup dropdown jika klik di luar area profil
+    window.addEventListener('click', function() {
+        if (!profileDropdown.classList.contains('hidden')) {
+            profileDropdown.classList.add('hidden');
+            dropdownIcon.classList.remove('rotate-180');
+        }
+    });
+</script>
+</body>

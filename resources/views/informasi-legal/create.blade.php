@@ -1,7 +1,8 @@
 <x-app-layout>
     <style>
         [x-cloak] { display: none !important; }
-        .sidebar-link { @apply flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 border-transparent; }
+        /* Perbaikan CSS: Tambahkan display block supaya link menumpuk ke bawah */
+        .sidebar-link { @apply flex items-center px-6 py-3 text-sm transition-all duration-200 border-l-4 border-transparent block w-full; }
         .sidebar-link.active { @apply bg-blue-600 text-white border-blue-400 font-semibold; }
         .sidebar-link.inactive { @apply text-gray-400 hover:bg-[#253a63] hover:text-white; }
     </style>
@@ -13,27 +14,48 @@
                     LOKET<span class="bg-white text-[#1a2b4c] text-[10px] px-1 ml-1 rounded font-black uppercase">12 Tahun</span>
                 </h1>
             </div>
+             <div class="px-4 mb-6">
+                <div class="bg-[#253a63] p-3 rounded-lg flex items-center gap-3 border border-gray-700">
+                    <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-face-smile text-white"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-[11px] font-bold text-white truncate uppercase tracking-tight">M FAIZAL KURNIA...</p>
+                        <p class="text-[10px] text-gray-400 font-medium">Admin</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-up-down text-[10px] ml-auto text-gray-500"></i>
+                </div>
+            </div>
+            <nav class="flex-1 overflow-y-auto flex flex-col"> <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
+    
+    <a href="{{ route('dashboardcreator.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
+    </a>
+    
+    <a href="{{ route('event-saya.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-calendar-check mr-3 w-5 text-center"></i> Event Saya
+    </a>
+    
+    <a href="{{ route('kelola-akses.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-users mr-3 w-5 text-center"></i> Kelola Akses
+    </a>
 
-            <nav class="flex-1 overflow-y-auto">
-                <div class="px-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Dashboard</div>
-                <a href="{{ route('tiket.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-house mr-3 w-5 text-center"></i> Dashboard
-                </a>
-                <a href="{{ route('event-saya.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-calendar-check mr-3 w-5 text-center"></i> Event Saya
-                </a>
-
-                <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Akun</div>
-                <a href="{{ route('informasi.create')}}" class="sidebar-link inactive">
-                    <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
-                </a>
-                <a href="{{ route('informasi-legal.create')}}" class="sidebar-link active">
-                    <i class="fa-solid fa-file-shield mr-3 w-5 text-center"></i> Informasi Legal
-                </a>
-                 <a href="{{ route('rekening.create')}}" class="sidebar-link active">
-                    <i class="fa-solid fa-file-shield mr-3 w-5 text-center"></i> rekening
-                </a>
-            </nav>
+    <div class="px-6 mt-6 py-2 text-[10px] uppercase font-bold text-gray-500 tracking-widest">Akun</div>
+    
+    <a href="{{ route('informasi.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> Informasi Dasar
+    </a>
+     <a href="{{ route('pengaturan.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-user-gear mr-3 w-5 text-center"></i> pengaturan
+    </a>
+    <a href="{{ route('informasi-legal.create')}}" class="flex items-center px-6 py-3 text-sm text-white bg-blue-600 border-l-4 border-blue-400 font-semibold transition-all">
+        <i class="fa-solid fa-file-shield mr-3 w-5 text-center"></i> Informasi Legal
+    </a>
+    
+    <a href="{{ route('rekening.create')}}" class="flex items-center px-6 py-3 text-sm text-gray-400 hover:bg-[#253a63] hover:text-white transition-all">
+        <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i> Rekening
+    </a>
+</nav>
         </aside>
 
         <main class="flex-1 flex flex-col min-w-0">

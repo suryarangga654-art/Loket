@@ -16,8 +16,8 @@
     <div class="min-h-screen bg-gray-100 flex flex-col">
         
         {{-- CEK NAVBAR --}}
-        @if(!Route::is('tiket.*') && !Route::is('event-saya.*') && !Route::is('kelola-akses.*') && !Route::is('informasi.*') && !Route::is('pengaturan.*') && !Route::is('informasi-legal.*') && !Route::is('rekening.*') && !Route::is('promo.*') && !Route::is('loketplus.*') && 
-        !Route::is('loketscreen.*') && !Route::is('loketpromo.*') && !Route::is('blog.*') && !Route::is('biaya.*') && !Route::is('loketx.*') &&  !Route::is('loketedu.*') && !Route::is('loketnews.*') && !Route::is('loketwiki.*') && !Route::is('loketevent.*') &&!Route::is('dashboard'))
+        @if(!Route::is('tiket.*') && !Route::is('event-saya.*') && !Route::is('kelola-akses.*') && !Route::is('informasi.*') && !Route::is('pengaturan.*') && !Route::is('informasi-legal.*') && !Route::is('rekening.*') && !Route::is('promo.*') && !Route::is('loketplus.*') && !Route::is('eventsshow.*') &&  
+        !Route::is('loketscreen.*') && !Route::is('loketpromo.*') && !Route::is('blog.*') && !Route::is('biaya.*') && !Route::is('loketx.*') &&  !Route::is('loketedu.*') && !Route::is('loketnews.*') && !Route::is('loketwiki.*') && !Route::is('loketevent.*') && !Route::is('dashboardcreator.*') &&!Route::is('dashboard'))
 
             <x-navbar />
         @endif {{-- <--- PASTIKAN ADA INI --}}
@@ -27,8 +27,8 @@
         </main>
 
         {{-- CEK FOOTER --}}
-        @if(!Route::is('tiket.*') && !Route::is('event-saya.*') && !Route::is('kelola-akses.*') && !Route::is('informasi.*') && !Route::is('pengaturan.*') && !Route::is('informasi-legal.*') && !Route::is('rekening.*') && !Route::is('promo.*') && !Route::is('loketplus.*') && 
-        !Route::is('loketscreen.*') && !Route::is('loketpromo.*') && !Route::is('blog.*') && !Route::is('biaya.*') && !Route::is('loketx.*') &&  !Route::is('loketedu.*') && !Route::is('loketnews.*') && !Route::is('loketwiki.*') && !Route::is('loketevent.*') &&!Route::is('dashboard'))
+        @if(!Route::is('tiket.*') && !Route::is('event-saya.*') && !Route::is('kelola-akses.*') && !Route::is('informasi.*') && !Route::is('pengaturan.*') && !Route::is('informasi-legal.*') && !Route::is('rekening.*') && !Route::is('promo.*') && !Route::is('loketplus.*') && !Route::is('eventsshow.*') && 
+        !Route::is('loketscreen.*') && !Route::is('loketpromo.*') && !Route::is('blog.*') && !Route::is('biaya.*') && !Route::is('loketx.*') &&  !Route::is('loketedu.*') && !Route::is('loketnews.*') && !Route::is('loketwiki.*') && !Route::is('loketevent.*') && !Route::is('dashboardcreator.*') &&!Route::is('dashboard'))
             <x-footer />
         @endif {{-- <--- PASTIKAN ADA INI JUGA --}}
         
