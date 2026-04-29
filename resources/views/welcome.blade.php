@@ -6,34 +6,37 @@
             ❮
         </button>
 
-        <div class="overflow-hidden rounded-2xl shadow-lg">
-            <div id="slides" class="flex transition-transform duration-500">
-                {{-- Ganti bagian slider item yang pertama (Retrospektif) menjadi seperti ini --}}
-<div class="min-w-full relative group cursor-pointer">
-    <a href="{{ route('eventsshow.create', ['slug' => 'afgan-retrospektif-2026']) }}" class="block">
-        <img src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200"
-             class="w-full h-80 object-cover">
-        <div class="absolute inset-0 bg-black/40 flex items-center px-10 text-white transition-opacity group-hover:bg-black/50">
-            <div>
-                <p class="text-sm tracking-widest uppercase">AFGAN</p>
-                <h1 class="text-4xl font-black">Retrospektif</h1>
-                <p class="text-xl">The Concert</p>
-                {{-- Tambahan button indikator --}}
-                <div class="mt-4 inline-block bg-blue-600 px-6 py-2 rounded-lg font-bold text-sm">Beli Tiket</div>
-            </div>
+       <div class="overflow-hidden rounded-2xl shadow-lg">
+    <div id="slides" class="flex transition-transform duration-500">
+        
+        {{-- MULAI DINAMIS DI SINI --}}
+        @foreach($semuaEvent as $event)
+        <div class="min-w-full relative group cursor-pointer">
+            {{-- Route diarahkan ke ID event tersebut --}}
+            <a href="{{ route('eventsshow.show', $event->id) }}" class="block">
+                
+                {{-- Gambar diambil dari kolom 'gambar' di database --}}
+                <img src="{{ asset('storage/' . $event->gambar) }}"
+                     class="w-full h-80 object-cover" 
+                     alt="{{ $event->judul_event }}">
+
+                <div class="absolute inset-0 bg-black/40 flex items-center px-10 text-white transition-opacity group-hover:bg-black/50">
+                    <div>
+                        {{-- Data teks juga jadi dinamis --}}
+                        <p class="text-sm tracking-widest uppercase">MUSIC EVENT</p>
+                        <h1 class="text-4xl font-black">{{ $event->judul_event }}</h1>
+                        <p class="text-xl">{{ $event->lokasi }}</p>
+                        
+                        <div class="mt-4 inline-block bg-blue-600 px-6 py-2 rounded-lg font-bold text-sm">Beli Tiket</div>
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
+        @endforeach
+        {{-- SELESAI --}}
+
+    </div>
 </div>
-                <div class="min-w-full">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200"
-                         class="w-full h-80 object-cover">
-                </div>
-                <div class="min-w-full">
-                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200"
-                         class="w-full h-80 object-cover">
-                </div>
-            </div>
-        </div>
 
         <button onclick="nextSlide()" 
             class="absolute right-6 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white px-3 py-2 rounded-full">
@@ -63,35 +66,53 @@
                 ];
                 @endphp
 
-                @foreach(range(0,5) as $i)
-                {{-- BUNGKUS DENGAN TAG <a> UNTUK PINDAH HALAMAN --}}
-                <a href="{{ route('eventsshow.create', ['slug' => 'event-keren-'.($i+1)]) }}" 
-                   class="min-w-[280px] flex-shrink-0 bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
-                    
-                    <div class="relative overflow-hidden">
-                        <img src="{{ $images[$i] }}" 
-                             onerror="this.src='https://placehold.co/400x250?text=Event+{{ $i+1 }}'"
-                             class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-blue-600 uppercase shadow-sm">
-                            Music
-                        </div>
-                    </div>
-
-                    <div class="p-4">
-                        <h3 class="font-black text-gray-800 uppercase italic tracking-tight group-hover:text-blue-600 transition">Event Keren {{ $i+1 }}</h3>
-                        <p class="text-gray-400 text-xs mt-1 flex items-center gap-1 font-bold uppercase italic">
-                            📅 25 Apr 2026
-                        </p>
-                        <p class="font-black mt-3 text-blue-900 text-lg italic tracking-tighter">Rp1.500.000</p>
-                        <hr class="my-3 border-gray-50">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-[10px]">🏢</div>
-                            <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Organizer XYZ</div>
-                        </div>
-                    </div>
-                </a>
-                @endforeach
+               <div id="eventSlides" class="flex gap-6 transition-transform duration-500 ease-in-out">
+    @forelse($semuaEvent as $event)
+        {{-- Link dinamis ke halaman detail --}}
+        <a href="{{ route('eventsshow.show', $event->id) }}" 
+           class="min-w-[280px] flex-shrink-0 bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 group">
+            
+            <div class="relative overflow-hidden">
+                {{-- Gambar dinamis dari database --}}
+                <img src="{{ $event->gambar ? asset('storage/' . $event->gambar) : 'https://placehold.co/400x250?text=No+Image' }}" 
+                     onerror="this.src='https://placehold.co/400x250?text=Error+Loading+Image'"
+                     class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
+                
+                <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-blue-600 uppercase shadow-sm">
+                    Film Bioskop
+                </div>
             </div>
+
+            <div class="p-4">
+                {{-- Judul dari Database --}}
+                <h3 class="font-black text-gray-800 uppercase italic tracking-tight group-hover:text-blue-600 transition">
+                    {{ $event->judul_event }}
+                </h3>
+                
+                {{-- Tanggal dari Database --}}
+                <p class="text-gray-400 text-xs mt-1 flex items-center gap-1 font-bold uppercase italic">
+                    📅 {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}
+                </p>
+                
+                {{-- Harga (bisa kamu buat kolom harga di DB atau hardcode dulu) --}}
+                <p class="font-black mt-3 text-blue-900 text-lg italic tracking-tighter">
+                    Rp{{ number_format($event->harga ?? 99000, 0, ',', '.') }}
+                </p>
+                
+                <hr class="my-3 border-gray-50">
+                
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-[10px]">🏢</div>
+                    <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">
+                        {{ $event->organizer ?? 'Organizer XYZ' }}
+                    </div>
+                </div>
+            </div>
+        </a>
+    @empty
+        <p class="text-gray-500 italic p-4">Belum ada event unggulan.</p>
+    @endforelse
+</div>
         </div>
 
         <button onclick="nextEvent()" 
@@ -218,43 +239,40 @@
     </div>
 </div>
 
-<div class="bg-[#0f172a] py-10 mt-12">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="text-white text-2xl font-black italic uppercase tracking-tighter mb-8">Top Events</h2>
+<div class="bg-[#0f172a] py-10 mt-12 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden">
+    
+    <div class="w-full px-4 md:px-10"> 
+        <h2 class="text-white text-2xl font-black italic uppercase tracking-tighter mb-8 ml-10">TOP EVENTS</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
             @php
-            // Data dummy untuk contoh, sesuaikan slug/id dengan database-mu nanti
             $topEvents = [
-                ['img' => "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=600", 'slug' => 'afgan-retrospektif-2026'],
-                ['img' => "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=600", 'slug' => 'event-keren-2'],
-                ['img' => "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600", 'slug' => 'event-keren-3']
+                ['img' => "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1000", 'slug' => 'afgan-retrospektif-2026'],
+                ['img' => "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000", 'slug' => 'event-keren-2'],
+                ['img' => "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000", 'slug' => 'event-keren-3']
             ];
             @endphp
 
             @foreach($topEvents as $index => $event)
-            {{-- Bungkus dengan <a> untuk pindah halaman --}}
-            <a href="{{ route('eventsshow.create', ['slug' => $event['slug']]) }}" class="flex items-center gap-4 group cursor-pointer">
+            <a href="{{ route('eventsshow.create', ['slug' => $event['slug']]) }}" class="flex items-center group cursor-pointer px-2">
                 
-                {{-- Angka Urutan dengan efek stroke --}}
-                <div class="text-6xl md:text-8xl font-black text-transparent transition-all duration-300 group-hover:scale-110 group-hover:text-blue-500/10" 
-                     style="-webkit-text-stroke: 2px #64748b; font-family: sans-serif;">
+                <div class="text-7xl md:text-9xl font-black text-transparent shrink-0 -mr-6 md:-mr-10 z-10 transition-all duration-300 group-hover:scale-110" 
+                     style="-webkit-text-stroke: 1.5px #475569; font-family: 'Arial Black', sans-serif; opacity: 0.6;">
                     {{ $index + 1 }}
                 </div>
 
-                {{-- Container Gambar --}}
-                <div class="flex-1 overflow-hidden rounded-xl shadow-lg border border-gray-700 relative">
+                <div class="flex-1 overflow-hidden rounded-xl border border-white/10 relative h-32 md:h-56">
                     <img src="{{ $event['img'] }}" 
-                         class="w-full h-32 object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                     
-                    {{-- Overlay warna saat Hover agar senada dengan LOKET --}}
-                    <div class="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60"></div>
                 </div>
             </a>
             @endforeach
         </div>
     </div>
-</div><div class="max-w-7xl mx-auto mt-12 px-4">
+</div>
+<div class="max-w-7xl mx-auto mt-12 px-4">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
         <h2 class="text-xl font-black italic uppercase tracking-tighter mb-6 text-blue-900">Kategori Event</h2>
         
@@ -295,66 +313,74 @@
         </div>
     </div>
 </div>
-<div class="max-w-7xl mx-auto mt-12 px-4 relative group">
-    <h2 class="text-2xl font-black italic uppercase tracking-tighter mb-6 text-blue-900">Healing Dulu Yuk!</h2>
+<div class="bg-gray-50 w-full py-12 mt-12 overflow-hidden"> 
+    
+    <div class="bg-gray-50 w-full py-12 mt-12 overflow-hidden"> 
+    
+    <div class="max-w-7xl mx-auto px-4 relative group">
+        <h2 class="text-2xl font-black italic uppercase tracking-tighter mb-6 text-blue-900">Healing Dulu Yuk!</h2>
 
-    {{-- Tombol Navigasi Kiri --}}
-    <button onclick="sideScroll('slider-healing', 'left')" 
-            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-    </button>
+        {{-- Tombol Navigasi Kiri --}}
+        <button onclick="sideScroll('slider-healing', 'left')" 
+                class="absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
 
-    <div id="slider-healing" 
-         class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-4 px-1">
-        
-        @php
-        $healing = [
-            ['title' => 'UP at Thamrin Nine', 'price' => 'Rp70.182', 'img' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400', 'slug' => 'up-thamrin-nine'],
-            ['title' => 'ANCOL TAMAN IMPIAN', 'price' => 'Rp77.729', 'img' => 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400', 'slug' => 'ancol-taman-impian'],
-            ['title' => 'Pantai Indah Kapuk', 'price' => 'Rp50.000', 'img' => 'https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=400', 'slug' => 'pik-beach'],
-            ['title' => 'Dufan Ancol', 'price' => 'Rp250.000', 'img' => 'https://images.unsplash.com/photo-1513889959010-65341817bdd2?q=80&w=400', 'slug' => 'dufan-ancol'],
-            ['title' => 'Sea World Jakarta', 'price' => 'Rp110.000', 'img' => 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=400', 'slug' => 'sea-world'],
-        ];
-        @endphp
-
-        @foreach($healing as $h)
-        {{-- BUNGKUS DENGAN TAG <a> --}}
-        <a href="{{ route('eventsshow.create', ['slug' => $h['slug']]) }}" 
-           class="min-w-[280px] md:min-w-[300px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
+        <div id="slider-healing" 
+             class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-4 px-1">
             
-            <div class="relative overflow-hidden">
-                <img src="{{ $h['img'] }}" class="w-full h-44 object-cover group-hover/card:scale-110 transition-transform duration-500">
-                <div class="absolute bottom-3 left-3 bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-1 rounded shadow-lg">
-                    Healing
-                </div>
-            </div>
-
-            <div class="p-4">
-                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight group-hover/card:text-blue-600 transition">{{ $h['title'] }}</h3>
-                <p class="text-gray-400 text-[9px] mt-1 font-bold uppercase italic tracking-wider">27 Des 2025 - 30 Apr 2026</p>
-                <p class="font-black text-blue-900 mt-2 text-lg italic tracking-tighter">{{ $h['price'] }}</p>
+            {{-- LOOPING DINAMIS DARI DATABASE --}}
+            @foreach($semuaEvent as $event)
+            <a href="{{ route('eventsshow.show', $event->id) }}" 
+               class="min-w-[280px] md:min-w-[350px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
                 
-                <div class="mt-4 flex items-center gap-2 border-t border-gray-50 pt-3">
-                    <div class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[8px] text-white font-black">L</div>
-                    <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest italic">Official Partner</span>
+                <div class="relative overflow-hidden">
+                    {{-- Gambar dari Database --}}
+                    <img src="{{ asset('storage/' . $event->gambar) }}" 
+                         alt="{{ $event->judul_event }}"
+                         class="w-full h-48 object-cover group-hover/card:scale-110 transition-transform duration-500">
+                    
+                    <div class="absolute bottom-3 left-3 bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-1 rounded shadow-lg">
+                        Healing
+                    </div>
                 </div>
-            </div>
-        </a>
-        @endforeach
+
+                <div class="p-4">
+                    {{-- Judul dari Database --}}
+                    <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight group-hover/card:text-blue-600 transition">
+                        {{ $event->judul_event }}
+                    </h3>
+                    
+                    {{-- Tanggal dari Database --}}
+                    <p class="text-gray-400 text-[9px] mt-1 font-bold uppercase italic tracking-wider">
+                        {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}
+                    </p>
+
+                    {{-- Harga (Ganti 'harga' sesuai kolom di DB-mu, jika belum ada biarkan dummy) --}}
+                    <p class="font-black text-blue-900 mt-2 text-lg italic tracking-tighter">
+                        Rp {{ number_format($event->harga ?? 70000, 0, ',', '.') }}
+                    </p>
+                    
+                    <div class="mt-4 flex items-center gap-2 border-t border-gray-50 pt-3">
+                        <div class="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-[8px] text-white font-black">L</div>
+                        <span class="text-[9px] text-gray-400 font-black uppercase tracking-widest italic">Official Partner</span>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+        {{-- Tombol Navigasi Kanan --}}
+        <button onclick="sideScroll('slider-healing', 'right')" 
+                class="absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
     </div>
-
-    {{-- Tombol Navigasi Kanan --}}
-    <button onclick="sideScroll('slider-healing', 'right')" 
-            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-2 hidden group-hover:flex items-center justify-center hover:bg-gray-50 transition border border-gray-100 w-10 h-10">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-    </button>
-</div>
-
-{{-- Script untuk Scroll Horizontal --}}
+</div>{{-- Script untuk Scroll Horizontal --}}
 <script>
     function sideScroll(elementId, direction) {
         const container = document.getElementById(elementId);
@@ -429,76 +455,89 @@
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
+{{-- 1. SECTION WORKSHOP & PELATIHAN (DINAMIS) --}}
+<div class="bg-white w-full py-12 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 relative group">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900">Workshop & Pelatihan</h2>
+            <a href="{{ route('jelajah.create') }}" class="text-blue-600 font-black italic text-xs uppercase hover:underline flex items-center gap-1">Lihat semua ❯</a>
+        </div>
 
-<div class="max-w-7xl mx-auto mt-12 px-4 relative group">
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900">Workshop & Pelatihan</h2>
-        <a href="#" class="text-blue-600 font-black italic text-xs uppercase hover:underline flex items-center gap-1">Lihat semua ❯</a>
+        <button onclick="sideScroll('slider-ws', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+
+        <div id="slider-ws" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6 px-1">
+            {{-- Mengambil data dari database $semuaEvent --}}
+            @foreach($semuaEvent as $event)
+            <a href="{{ route('eventsshow.show', $event->id) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
+                <div class="relative overflow-hidden">
+                    {{-- Gambar Dinamis --}}
+                    <img src="{{ asset('storage/' . $event->gambar) }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $event->judul_event }}</h3>
+                    <p class="text-gray-400 text-[9px] font-black uppercase italic my-2 tracking-wider">
+                        {{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}
+                    </p>
+                     <p class="font-black text-blue-900 mt-2 text-lg italic tracking-tighter">
+                        Rp {{ number_format($event->harga ?? 70000, 0, ',', '.') }}
+                    </p>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+        <button onclick="sideScroll('slider-ws', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+        </button>
     </div>
-
-    <button onclick="sideScroll('slider-ws', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
-    </button>
-
-    <div id="slider-ws" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6">
-        @foreach($workshops as $ws)
-        {{-- BUNGKUS DENGAN TAG <a> --}}
-        <a href="{{ route('eventsshow.create', ['slug' => Str::slug($ws['title'])]) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
-            <div class="relative overflow-hidden">
-                <img src="{{ $ws['img'] }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
-            </div>
-            <div class="p-4">
-                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $ws['title'] }}</h3>
-                <p class="text-gray-400 text-[9px] font-black uppercase italic my-2 tracking-wider">{{ $ws['date'] }}</p>
-                <p class="font-black text-blue-900 text-lg italic tracking-tighter">{{ $ws['price'] }}</p>
-            </div>
-        </a>
-        @endforeach
-    </div>
-
-    <button onclick="sideScroll('slider-ws', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
-    </button>
-</div>
-<div class="max-w-7xl mx-auto mt-12 px-4 mb-20 relative group">
-    <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900 mb-6">Populer di <span class="text-blue-600">Jakarta ▾</span></h2>
-
-    <button onclick="sideScroll('slider-pk', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
-    </button>
-
-    <div id="slider-pk" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6">
-        @foreach($populer as $p)
-        {{-- BUNGKUS DENGAN TAG <a> --}}
-        <a href="{{ route('eventsshow.create', ['slug' => Str::slug($p['title'])]) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
-            <div class="relative overflow-hidden">
-                <img src="{{ $p['img'] }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
-            </div>
-            <div class="p-4">
-                <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $p['title'] }}</h3>
-                <p class="font-black text-blue-900 text-lg mt-4 italic tracking-tighter">{{ $p['price'] }}</p>
-                <div class="mt-2 text-[9px] font-black text-gray-400 uppercase italic tracking-widest border-t border-gray-50 pt-2">{{ $p['org'] }}</div>
-            </div>
-        </a>
-        @endforeach
-    </div>
-
-    <button onclick="sideScroll('slider-pk', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
-    </button>
 </div>
 
-    <div class="flex justify-center mt-12">
-        <a href="{{ route('jelajah.create')}}" class="inline-flex items-center gap-2 px-8 py-2.5 border-2 border-blue-500 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-sm group">
-            Jelajah Lebih Banyak Event
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </a>
+{{-- 2. SECTION POPULER (DINAMIS) --}}
+<div class="bg-gray-50 w-full py-12 mb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 relative group">
+        <h2 class="text-2xl font-black italic uppercase tracking-tighter text-blue-900 mb-6">Populer di <span class="text-blue-600">Jakarta ▾</span></h2>
+
+        <button onclick="sideScroll('slider-pk', 'left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+
+        <div id="slider-pk" class="flex flex-nowrap gap-6 overflow-x-auto scroll-smooth scrollbar-hide pb-6 px-1">
+            {{-- Mengambil data yang sama tapi bisa kamu filter/sort nanti --}}
+            @foreach($semuaEvent->reverse() as $event)
+            <a href="{{ route('eventsshow.show', $event->id) }}" class="min-w-[280px] md:min-w-[310px] bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block group/card">
+                <div class="relative overflow-hidden">
+                    <img src="{{ asset('storage/' . $event->gambar) }}" class="w-full h-40 object-cover group-hover/card:scale-110 transition-transform duration-500">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-black text-sm text-gray-800 uppercase italic tracking-tight line-clamp-2 h-10 group-hover/card:text-blue-600 transition">{{ $event->judul_event }}</h3>
+                     <p class="font-black text-blue-900 mt-2 text-lg italic tracking-tighter">
+                        Rp {{ number_format($event->harga ?? 70000, 0, ',', '.') }}
+                    </p>
+                    <div class="mt-2 text-[9px] font-black text-gray-400 uppercase italic tracking-widest border-t border-gray-50 pt-2">
+                        {{ $event->lokasi ?? 'Jakarta' }}
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+        <button onclick="sideScroll('slider-pk', 'right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hidden group-hover:flex items-center justify-center border border-gray-100 w-12 h-12">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+        </button>
     </div>
+</div>
+
+<div class="flex justify-center mt-4 mb-12">
+    <a href="{{ route('jelajah.create')}}" class="inline-flex items-center gap-2 px-8 py-2.5 border-2 border-blue-500 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all text-sm group">
+        Jelajah Lebih Banyak Event
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </a>
 </div>
 <script>
-// ===== LOGIK SLIDER BANNER UTAMA =====
 let index = 0;
 const slides = document.getElementById("slides");
 const totalSlides = slides.children.length;

@@ -73,11 +73,10 @@
 
                             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-8">
                                 <h2 class="text-xl font-black mb-4 uppercase italic tracking-tighter">Syarat & Ketentuan</h2>
-                                <ul class="list-decimal pl-5 text-sm text-gray-600 space-y-2">
-                                    <li>Tiket berlaku untuk 1 orang.</li>
-                                    <li>Tiket tidak dapat di-refund.</li>
-                                    <li>Wajib membawa KTP/ID asli.</li>
-                                </ul>
+                                <div class="text-sm text-gray-600 leading-relaxed">
+                                    {{-- nl2br untuk menjaga baris baru/enter dari database --}}
+                                    {!! nl2br(e($event->syarat_ketentuan ?? "1. Tiket berlaku untuk 1 orang.\n2. Tiket tidak dapat di-refund.")) !!}
+                                </div>
                             </div>
                         </div>
 
@@ -86,7 +85,11 @@
                             <div class="sticky top-24 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 text-center">
                                 <p class="text-gray-400 text-[10px] font-black uppercase mb-1 tracking-widest">Harga mulai dari</p>
                                 <h3 class="text-2xl font-black text-blue-900 mb-6 tracking-tighter">
-                                    Rp{{ number_format($tickets->min('harga') ?? 0, 0, ',', '.') }}
+                                    @if($tickets->count() > 0)
+                                        Rp{{ number_format($tickets->min('harga'), 0, ',', '.') }}
+                                    @else
+                                        Gratis / Belum Tersedia
+                                    @endif
                                 </h3>
                                 <button @click="view = 'tiket'; window.scrollTo(0,0)" 
                                         class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-black text-lg uppercase italic transition shadow-lg">
